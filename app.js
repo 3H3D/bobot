@@ -3,6 +3,15 @@ const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_49UN3oQJiIcqmsIUj0nPEA_J2HVD1Dn
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
+// Pengecekan Sesi Login Artis
+async function checkAuth() {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (!session) {
+    window.location.href = 'login.html';
+  }
+}
+checkAuth();
+
 function autoGenUPC() {
   const randomSuffix = Math.floor(10000000000 + Math.random() * 90000000000);
   document.getElementById('upc-input').value = `83${randomSuffix}`;
