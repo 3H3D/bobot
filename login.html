@@ -1,55 +1,70 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ferwap Music - Artist Access</title>
+  <title>Ferwap Music - Artist Portal Access</title>
+  <!-- Font Awesome untuk Ikon Mata -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body style="display:flex; flex-direction:column; justify-content:space-between; align-items:center; min-height:100vh; margin:0; background-color:#0b0e14; color:#fff; font-family:sans-serif;">
 
-  <!-- HEADER DI BAGIAN ATAS -->
-  <header style="width:100%; padding:20px; text-align:center; border-bottom:1px solid #1e2638; background:#0b0e14;">
-    <h3 style="margin:0; color:#00ff88; letter-spacing:1px;">FERWAP MUSIC ENTERTAINMENT</h3>
-    <p style="margin:4px 0 0 0; font-size:12px; color:#828ca0;">Official Artist Distribution Portal</p>
+  <!-- HEADER: Logo & Label Name on Left, Support & Feedback on Right -->
+  <header style="width:100%; padding:16px 32px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e2638; background:#0b0e14; box-sizing:border-box;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div style="background:#00ff88; color:#0b0e14; font-weight:bold; width:36px; height:36px; display:flex; justify-content:center; align-items:center; border-radius:8px; font-size:16px;">3H</div>
+      <div>
+        <h3 style="margin:0; color:#00ff88; font-size:16px; letter-spacing:0.5px;">FERWAP MUSIC</h3>
+        <span style="font-size:11px; color:#828ca0;">Official Artist Portal</span>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:20px; font-size:14px;">
+      <a href="mailto:support@ferwap.com" style="color:#828ca0; text-decoration:none; transition:0.2s;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#828ca0'">Support</a>
+      <a href="#feedback" onclick="alert('Please contact admin via email for feedback or technical support.'); return false;" style="color:#828ca0; text-decoration:none; transition:0.2s;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#828ca0'">Feedback</a>
+    </div>
   </header>
 
-  <!-- KOTAK UTAMA LOGIN / SIGN UP -->
+  <!-- MAIN AUTH CONTAINER -->
   <div style="background:#131822; border:1px solid #1e2638; border-radius:12px; padding:32px; width:100%; max-width:400px; box-shadow:0 8px 24px rgba(0,0,0,0.4); margin: 20px;">
     
     <div style="text-align:center; margin-bottom:24px;">
-      <h2 style="color:#fff; margin-bottom:8px; font-size:20px;">Akses Portal</h2>
-      <p style="color:#828ca0; font-size:14px;">Masuk atau daftarkan akun artis Anda</p>
+      <h2 style="color:#fff; margin-bottom:8px; font-size:20px;">Portal Access</h2>
+      <p style="color:#828ca0; font-size:14px;">Sign in or create your artist account</p>
     </div>
 
-    <!-- Pilihan Tab Login / Sign Up -->
+    <!-- Mode Selector Tabs -->
     <div style="display:flex; margin-bottom:20px; border-bottom:1px solid #1e2638;">
-      <button id="tab-login" onclick="switchMode('login')" style="flex:1; padding:10px; background:none; border:none; color:#00ff88; border-bottom:2px solid #00ff88; cursor:pointer; font-weight:bold;">Masuk</button>
-      <button id="tab-signup" onclick="switchMode('signup')" style="flex:1; padding:10px; background:none; border:none; color:#828ca0; cursor:pointer; font-weight:bold;">Daftar</button>
+      <button id="tab-login" onclick="switchMode('login')" style="flex:1; padding:10px; background:none; border:none; color:#00ff88; border-bottom:2px solid #00ff88; cursor:pointer; font-weight:bold;">Sign In</button>
+      <button id="tab-signup" onclick="switchMode('signup')" style="flex:1; padding:10px; background:none; border:none; color:#828ca0; cursor:pointer; font-weight:bold;">Sign Up</button>
     </div>
 
-    <!-- Form Autentikasi -->
+    <!-- Authentication Form -->
     <form id="auth-form" style="display:flex; flex-direction:column; gap:16px;">
       <div id="artist-name-group" style="display:none; flex-direction:column; gap:6px;">
-        <label style="font-size:12px; color:#828ca0;">Nama Panggung / Artist Name</label>
-        <input type="text" id="artist-name" placeholder="Contoh: ANDER" style="background:#0b0e14; border:1px solid #1e2638; padding:12px; border-radius:6px; color:#fff; outline:none;">
+        <label style="font-size:12px; color:#828ca0;">Artist / Stage Name</label>
+        <input type="text" id="artist-name" placeholder="e.g. ANDER" style="background:#0b0e14; border:1px solid #1e2638; padding:12px; border-radius:6px; color:#fff; outline:none;">
       </div>
 
       <div style="display:flex; flex-direction:column; gap:6px;">
-        <label style="font-size:12px; color:#828ca0;">Email</label>
-        <input type="email" id="auth-email" placeholder="nama@domain.com" required style="background:#0b0e14; border:1px solid #1e2638; padding:12px; border-radius:6px; color:#fff; outline:none;">
+        <label style="font-size:12px; color:#828ca0;">Email Address</label>
+        <input type="email" id="auth-email" placeholder="name@domain.com" required style="background:#0b0e14; border:1px solid #1e2638; padding:12px; border-radius:6px; color:#fff; outline:none;">
       </div>
 
       <div style="display:flex; flex-direction:column; gap:6px;">
-        <label style="font-size:12px; color:#828ca0;">Kata Sandi (Password)</label>
-        <input type="password" id="auth-password" placeholder="••••••••" required style="background:#0b0e14; border:1px solid #1e2638; padding:12px; border-radius:6px; color:#fff; outline:none;">
+        <label style="font-size:12px; color:#828ca0;">Password</label>
+        <div style="position:relative; display:flex; align-items:center;">
+          <input type="password" id="auth-password" placeholder="••••••••" required style="width:100%; background:#0b0e14; border:1px solid #1e2638; padding:12px 40px 12px 12px; border-radius:6px; color:#fff; outline:none; box-sizing:border-box;">
+          <i id="toggle-password" class="fa-solid fa-eye" onclick="togglePasswordVisibility()" style="position:absolute; right:12px; color:#828ca0; cursor:pointer;"></i>
+        </div>
       </div>
 
-      <button type="submit" id="btn-submit" style="background:#00ff88; color:#0b0e14; font-weight:bold; padding:12px; border:none; border-radius:6px; cursor:pointer; margin-top:10px;">Masuk ke Portal</button>
+      <button type="submit" id="btn-submit" style="background:#00ff88; color:#0b0e14; font-weight:bold; padding:12px; border:none; border-radius:6px; cursor:pointer; margin-top:10px;">Sign In to Portal</button>
     </form>
   </div>
 
-  <!-- FOOTER DI BAGIAN BAWAH -->
+  <!-- FOOTER -->
   <footer style="width:100%; padding:16px; text-align:center; border-top:1px solid #1e2638; background:#0b0e14; font-size:12px; color:#828ca0;">
     &copy; 2026 Ferwap Music Entertainment. All rights reserved.
   </footer>
@@ -60,6 +75,20 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
     let mode = 'login';
+
+    function togglePasswordVisibility() {
+      const pwdInput = document.getElementById('auth-password');
+      const eyeIcon = document.getElementById('toggle-password');
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        pwdInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    }
 
     function switchMode(newMode) {
       mode = newMode;
@@ -74,14 +103,14 @@
         tabLogin.style.color = '#828ca0';
         tabLogin.style.borderBottom = 'none';
         nameGroup.style.display = 'flex';
-        btnSubmit.innerText = 'Daftar Akun Baru';
+        btnSubmit.innerText = 'Create Account';
       } else {
         tabLogin.style.color = '#00ff88';
         tabLogin.style.borderBottom = '2px solid #00ff88';
         tabSignup.style.color = '#828ca0';
         tabSignup.style.borderBottom = 'none';
         nameGroup.style.display = 'none';
-        btnSubmit.innerText = 'Masuk ke Portal';
+        btnSubmit.innerText = 'Sign In to Portal';
       }
     }
 
@@ -99,9 +128,9 @@
         });
 
         if (error) {
-          alert("Gagal mendaftar: " + error.message);
+          alert("Registration failed: " + error.message);
         } else {
-          alert("Pendaftaran berhasil! Silakan coba login.");
+          alert("Registration successful! Please sign in.");
           switchMode('login');
         }
       } else {
@@ -111,9 +140,9 @@
         });
 
         if (error) {
-          alert("Gagal login: " + error.message);
+          alert("Sign in failed: " + error.message);
         } else {
-          alert("Login berhasil!");
+          alert("Sign in successful!");
           window.location.href = 'index.html';
         }
       }
