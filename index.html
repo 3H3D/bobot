@@ -3,130 +3,183 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Agregator Musik Global</title>
+  <title>Ferwap Music - Global Distribution Portal</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- Top Navigation Header -->
-  <header class="navbar">
-    <div class="logo">
-      <span class="logo-icon">🎵</span>
-      <h1>Global Music Distro</h1>
-    </div>
-    <div class="role-selector">
-      <button id="btn-portal-artist" class="btn-role active" onclick="switchTab('artist')">Portal Artis</button>
-      <button id="btn-panel-admin" class="btn-role" onclick="switchTab('admin')">Panel Admin</button>
-    </div>
-  </header>
-
-  <main class="main-container">
-
-    <!-- SECTION 1: PORTAL ARTIS (FORM UPLOAD & METADATA) -->
-    <section id="tab-artist" class="tab-content active">
-      <div class="card">
-        <div class="card-header">
-          <h2>Formulir Rilis Musik Baru</h2>
-          <p>Masukkan berkas lagu dan informasi metadata standar (UPC & ISRC)</p>
+  <div class="app-layout">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-compact-disc rotate-icon"></i></div>
+        <div class="brand-text">
+          <h2>FERWAP</h2>
+          <span>DISTRO HUB</span>
         </div>
+      </div>
 
-        <form id="release-form">
-          <!-- Audio & Artwork Upload Area -->
-          <div class="form-grid-2">
+      <nav class="nav-menu">
+        <a href="#" class="nav-item active" onclick="switchTab('artist', this)">
+          <i class="fa-solid fa-cloud-arrow-up"></i> <span>Rilis Lagu</span>
+        </a>
+        <a href="#" class="nav-item" onclick="switchTab('admin', this)">
+          <i class="fa-solid fa-sliders"></i> <span>Panel Admin</span>
+        </a>
+      </nav>
+
+      <div class="user-profile">
+        <div class="avatar"><i class="fa-solid fa-user-gear"></i></div>
+        <div class="user-info">
+          <p class="user-name">Main Manager</p>
+          <span class="user-role">System Admin</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="content-area">
+      
+      <!-- TOPBAR HEADER -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1 id="page-title">Buat Rilisan Baru</h1>
+          <p id="page-subtitle">Unggah master audio dan tentukan identifikasi unik UPC & ISRC</p>
+        </div>
+        <div class="status-badge">
+          <span class="dot pulse"></span> Delivery Pipeline Active
+        </div>
+      </header>
+
+      <!-- TAB 1: ARTIST UPLOAD PORTAL -->
+      <section id="tab-artist" class="tab-content active">
+        <form id="release-form" class="dashboard-grid">
+          
+          <!-- LEFT COLUMN: FILE DROPZONES -->
+          <div class="grid-card">
+            <h3 class="card-title"><i class="fa-solid fa-photo-film"></i> Berkas Media</h3>
+            
+            <!-- Artwork Dropzone -->
             <div class="form-group">
-              <label for="audio-file">File Master Audio (WAV Only)</label>
-              <div class="file-upload-box">
-                <input type="file" id="audio-file" accept=".wav" required>
-                <p class="file-hint">Format .WAV (16-bit / 44.1kHz minimum)</p>
+              <label>Cover Art / Sampul Rilisan</label>
+              <div class="dropzone" id="cover-dropzone" onclick="document.getElementById('cover-file').click()">
+                <input type="file" id="cover-file" accept="image/jpeg, image/png" class="file-input-hidden" onchange="handleCoverPreview(this)">
+                <div class="dropzone-preview" id="cover-preview">
+                  <i class="fa-solid fa-image drop-icon"></i>
+                  <p class="drop-text">Pilih atau geser file gambar</p>
+                  <span class="drop-hint">JPG / PNG (Min. 3000 x 3000px)</span>
+                </div>
               </div>
             </div>
 
+            <!-- Audio Dropzone -->
             <div class="form-group">
-              <label for="cover-file">Cover Art / Sampul (JPG/PNG)</label>
-              <div class="file-upload-box">
-                <input type="file" id="cover-file" accept="image/jpeg, image/png" required>
-                <p class="file-hint">Resolusi Persegi (Minimum 3000x3000px)</p>
+              <label>Master Audio</label>
+              <div class="dropzone audio-zone" id="audio-dropzone" onclick="document.getElementById('audio-file').click()">
+                <input type="file" id="audio-file" accept=".wav" class="file-input-hidden" onchange="handleAudioSelect(this)">
+                <div class="dropzone-preview" id="audio-preview">
+                  <i class="fa-solid fa-file-audio drop-icon"></i>
+                  <p class="drop-text" id="audio-filename">Pilih file audio berkualitas tinggi</p>
+                  <span class="drop-hint">Format WAV (16-bit / 44.1kHz minimum)</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Informational Core (Title & Display Artist) -->
-          <div class="form-grid-2">
+          <!-- RIGHT COLUMN: METADATA & IDENTIFIERS -->
+          <div class="grid-card">
+            <h3 class="card-title"><i class="fa-solid fa-tags"></i> Informasi & Metadata</h3>
+
             <div class="form-group">
               <label for="release-title">Judul Lagu / Rilisan</label>
-              <input type="text" id="release-title" placeholder="Contoh: Sang Pemimpi" required>
+              <div class="input-icon-wrapper">
+                <i class="fa-solid fa-music input-icon"></i>
+                <input type="text" id="release-title" placeholder="Masukkan judul lagu utama" required>
+              </div>
             </div>
+
             <div class="form-group">
-              <label for="artist-name">Nama Artis Utama (Display Artist)</label>
-              <input type="text" id="artist-name" placeholder="Nama Artis / Band" required>
+              <label for="artist-name">Nama Artis Utama (Display Name)</label>
+              <div class="input-icon-wrapper">
+                <i class="fa-solid fa-microphone input-icon"></i>
+                <input type="text" id="artist-name" placeholder="Nama Artis / Grup" required>
+              </div>
             </div>
+
+            <!-- Identifiers (UPC & ISRC) -->
+            <div class="form-row-2">
+              <div class="form-group">
+                <div class="label-inline">
+                  <label for="upc-code">Kode UPC</label>
+                  <button type="button" class="btn-gen" onclick="generateUPC()"><i class="fa-solid fa-wand-magic-sparkles"></i> Auto</button>
+                </div>
+                <input type="text" id="upc-code" placeholder="12-13 Digit UPC" required>
+              </div>
+
+              <div class="form-group">
+                <div class="label-inline">
+                  <label for="isrc-code">Kode ISRC</label>
+                  <button type="button" class="btn-gen" onclick="generateISRC()"><i class="fa-solid fa-wand-magic-sparkles"></i> Auto</button>
+                </div>
+                <input type="text" id="isrc-code" placeholder="ID-XXX-26-00001" required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary-action">
+              <span>Proses Rilisan ke Pipeline</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
           </div>
 
-          <!-- Primary Identifiers (UPC & ISRC) -->
-          <div class="form-grid-2">
-            <div class="form-group">
-              <div class="label-with-btn">
-                <label for="upc-code">Kode UPC (Album Barcode)</label>
-                <button type="button" class="btn-inline-gen" onclick="generateUPC()">Auto-Gen</button>
-              </div>
-              <input type="text" id="upc-code" placeholder="12 Digit Kode UPC / EAN" required>
-              <p class="file-hint">Identitas unik untuk satu paket rilisan ini.</p>
-            </div>
-
-            <div class="form-group">
-              <div class="label-with-btn">
-                <label for="isrc-code">Kode ISRC (Audio Track Code)</label>
-                <button type="button" class="btn-inline-gen" onclick="generateISRC()">Auto-Gen</button>
-              </div>
-              <input type="text" id="isrc-code" placeholder="Format: ID-XXX-26-00001" required>
-              <p class="file-hint">Kode unik perekaman audio lagu ini.</p>
-            </div>
-          </div>
-
-          <button type="submit" class="btn-submit">Submit Rilisan ke System</button>
         </form>
-      </div>
-    </section>
+      </section>
 
-    <!-- SECTION 2: PANEL ADMIN (INSPECTIONS & B2B API APPROVAL) -->
-    <section id="tab-admin" class="tab-content">
-      <div class="card">
-        <div class="card-header">
-          <h2>Panel Pengawasan Admin</h2>
-          <p>Setujui rilisan untuk dikirimkan secara otomatis via API B2B Global</p>
+      <!-- TAB 2: ADMIN MANAGEMENT PANEL -->
+      <section id="tab-admin" class="tab-content">
+        <div class="grid-card full-width">
+          <div class="card-header-flex">
+            <div>
+              <h3 class="card-title"><i class="fa-solid fa-list-check"></i> Antrean Rilisan</h3>
+              <p class="card-subtitle">Setujui rilisan untuk memicu skrip payload DDEX ERN ke partner B2B</p>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Artwork</th>
+                  <th>Rilisan & Artis</th>
+                  <th>UPC / EAN</th>
+                  <th>ISRC Code</th>
+                  <th>Status Delivery</th>
+                  <th>Aksi Admin</th>
+                </tr>
+              </thead>
+              <tbody id="admin-table-body">
+                <!-- Injected by JavaScript -->
+              </tbody>
+            </table>
+          </div>
         </div>
+      </section>
 
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Judul Lagu</th>
-                <th>Artis</th>
-                <th>UPC</th>
-                <th>ISRC</th>
-                <th>Status</th>
-                <th>Aksi Admin</th>
-              </tr>
-            </thead>
-            <tbody id="admin-table-body">
-              <!-- Data akan terisi secara dinamis melalui JavaScript -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+    </main>
+  </div>
 
-  </main>
-
-  <!-- MODAL INSPEC DDEX & B2B PAYLOAD -->
-  <div id="modal-payload" class="modal-overlay">
-    <div class="modal-card">
+  <!-- INSPECTION MODAL -->
+  <div id="modal-payload" class="modal-backdrop">
+    <div class="modal-window">
       <div class="modal-header">
-        <h3 id="modal-title">Inspection Data API B2B & DDEX XML</h3>
-        <button class="btn-close-modal" onclick="closeModal()">&times;</button>
+        <div>
+          <h3><i class="fa-solid fa-code"></i> Payload Inspection Engine</h3>
+          <span class="modal-subtext">Struktur XML DDEX ERN 3.8 / B2B Delivery Request</span>
+        </div>
+        <button class="btn-close" onclick="closeModal()">&times;</button>
       </div>
       <div class="modal-body">
-        <pre><code id="payload-content">Output JSON / XML akan ditampilkan di sini...</code></pre>
+        <pre><code id="payload-content">Generating payload...</code></pre>
       </div>
     </div>
   </div>
