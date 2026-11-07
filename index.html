@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
 
   <div class="tunecore-layout">
     
-    <!-- SIDEBAR MUSISI -->
+    <!-- ARTIST SIDEBAR -->
     <aside class="tc-sidebar">
       <div class="tc-brand">
         <div class="brand-logo">
@@ -24,10 +24,10 @@
       </div>
 
       <nav class="tc-nav">
-        <a href="#" class="tc-nav-item active"><i class="fa-solid fa-compact-disc"></i> Rilis Musik Baru</a>
-        <a href="#" class="tc-nav-item"><i class="fa-solid fa-layer-group"></i> Katalog Saya</a>
-        <a href="#" class="tc-nav-item"><i class="fa-solid fa-chart-line"></i> Analitik & Stream</a>
-        <a href="#" class="tc-nav-item"><i class="fa-solid fa-wallet"></i> Saldo & Royalti</a>
+        <a href="#" class="tc-nav-item active"><i class="fa-solid fa-cloud-arrow-up"></i> New Release</a>
+        <a href="#" class="tc-nav-item"><i class="fa-solid fa-compact-disc"></i> My Catalog</a>
+        <a href="#" class="tc-nav-item"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+        <a href="#" class="tc-nav-item"><i class="fa-solid fa-wallet"></i> Royalties</a>
       </nav>
 
       <div class="tc-user-card">
@@ -39,30 +39,30 @@
       </div>
     </aside>
 
-    <!-- AREA UTAMA PORTAL ARTIS -->
+    <!-- MAIN PORTAL CONTENT -->
     <main class="tc-main">
       
-      <!-- TOP HEADER -->
+      <!-- TOPBAR -->
       <header class="tc-topbar">
         <div>
-          <h1 class="page-headline">Buat Rilisan Musik Baru</h1>
-          <p class="page-subline">Mulai proses distribusi lagu Anda ke Spotify, Apple Music, TikTok, dan 150+ toko musik digital.</p>
+          <h1 class="page-headline">New Release Distribution</h1>
+          <p class="page-subline">Submit your master audio for global delivery to Spotify, Apple Music, TikTok, and DSPs worldwide.</p>
         </div>
         <div class="badge-direct">
-          <i class="fa-solid fa-globe"></i> Global Pipeline Ready
+          <i class="fa-solid fa-globe"></i> Pipeline Active
         </div>
       </header>
 
-      <!-- FORMULIR RILIS STYLE TUNECORE -->
+      <!-- RELEASE FORM -->
       <form id="artist-release-form" class="tc-form-container">
         
-        <!-- STEP 1: MEDIA UPLOAD -->
+        <!-- SECTION 1: MEDIA UPLOAD -->
         <div class="tc-card">
           <div class="card-header-tc">
             <span class="step-num">01</span>
             <div>
-              <h3>Berkas Audio & Sampul Album</h3>
-              <p>Unggah file berkualitas master dan *artwork* standar industri.</p>
+              <h3>Media Assets</h3>
+              <p>Upload uncompressed master audio and high-resolution artwork.</p>
             </div>
           </div>
 
@@ -72,9 +72,9 @@
               <input type="file" id="audio-input" accept=".wav" hidden onchange="handleAudioSelect(this)">
               <div id="audio-drop-content">
                 <i class="fa-solid fa-file-waveform tc-drop-icon"></i>
-                <h4>Master Audio (WAV)</h4>
-                <p id="audio-status-text">Klik atau seret file master di sini</p>
-                <span class="tc-hint">WAV 16-bit / 44.1kHz (Uncompressed)</span>
+                <h4>Master Audio (.WAV)</h4>
+                <p id="audio-status-text">Click or drop audio file here</p>
+                <span class="tc-hint">WAV 16-bit / 44.1kHz minimum</span>
               </div>
             </div>
 
@@ -84,59 +84,59 @@
               <div id="cover-drop-content">
                 <i class="fa-solid fa-image tc-drop-icon"></i>
                 <h4>Cover Art (Artwork)</h4>
-                <p id="cover-status-text">Klik atau seret gambar sampul</p>
-                <span class="tc-hint">JPG/PNG (Minimum 3000 x 3000px Persegi)</span>
+                <p id="cover-status-text">Click or drop cover image</p>
+                <span class="tc-hint">JPG/PNG (Min. 3000 x 3000px)</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- STEP 2: METADATA LENGKAP -->
+        <!-- SECTION 2: METADATA & CODES -->
         <div class="tc-card">
           <div class="card-header-tc">
             <span class="step-num">02</span>
             <div>
-              <h3>Informasi Lagu & Metadata</h3>
-              <p>Detail rilis lagu yang akan ditampilkan pada platform pemutar musik.</p>
+              <h3>Release Metadata</h3>
+              <p>Essential tracking codes and release identifiers.</p>
             </div>
           </div>
 
           <div class="form-grid">
             <div class="input-block">
-              <label>Judul Rilisan / Lagu</label>
-              <input type="text" id="title-input" placeholder="Masukkan judul resmi lagu" required>
+              <label>Release Title</label>
+              <input type="text" id="title-input" placeholder="e.g. Song Title" required>
             </div>
 
             <div class="input-block">
-              <label>Nama Artis Utama (Display Artist)</label>
-              <input type="text" id="artist-input" placeholder="Nama artis / proyek musik" required>
+              <label>Display Artist</label>
+              <input type="text" id="artist-input" placeholder="e.g. 3H3D" required>
             </div>
 
-            <!-- KODE UNIK (UPC & ISRC) -->
+            <!-- UPC & ISRC -->
             <div class="input-block">
               <div class="label-flex">
-                <label>Kode UPC (Universal Product Code)</label>
+                <label>UPC Code</label>
                 <button type="button" class="tc-btn-gen" onclick="autoGenUPC()">Generate UPC</button>
               </div>
-              <input type="text" id="upc-input" placeholder="12 Digit Kode UPC / EAN" required>
-              <span class="field-info">Kosongkan/klik generate jika belum memiliki UPC.</span>
+              <input type="text" id="upc-input" placeholder="12-Digit UPC / EAN" required>
+              <span class="field-info">Leave blank or auto-generate if none.</span>
             </div>
 
             <div class="input-block">
               <div class="label-flex">
-                <label>Kode ISRC (Track Master Code)</label>
+                <label>ISRC Code</label>
                 <button type="button" class="tc-btn-gen" onclick="autoGenISRC()">Generate ISRC</button>
               </div>
-              <input type="text" id="isrc-input" placeholder="ID-XXX-26-00001" required>
-              <span class="field-info">Kode identitas resmi perekaman rekaman audio.</span>
+              <input type="text" id="isrc-input" placeholder="ID-FRW-26-00001" required>
+              <span class="field-info">Unique audio track recording code.</span>
             </div>
           </div>
         </div>
 
-        <!-- BOTTOM ACTION -->
+        <!-- SUBMIT ACTION -->
         <div class="form-footer-action">
           <button type="submit" class="tc-btn-submit">
-            <i class="fa-solid fa-paper-plane"></i> Kirim Rilisan ke Distribusi
+            <i class="fa-solid fa-paper-plane"></i> Submit Release for Distribution
           </button>
         </div>
 
