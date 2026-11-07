@@ -4,28 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ferwap Music - Artist Access</title>
-  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body style="display:flex; justify-content:center; align-items:center; min-height:100vh; background-color:#0b0e14; color:#fff; font-family:sans-serif;">
+<body style="display:flex; flex-direction:column; justify-content:space-between; align-items:center; min-height:100vh; margin:0; background-color:#0b0e14; color:#fff; font-family:sans-serif;">
 
-  <div style="background:#131822; border:1px solid #1e2638; border-radius:12px; padding:32px; width:100%; max-width:400px; box-shadow:0 8px 24px rgba(0,0,0,0.4);">
+  <!-- HEADER DI BAGIAN ATAS -->
+  <header style="width:100%; padding:20px; text-align:center; border-bottom:1px solid #1e2638; background:#0b0e14;">
+    <h3 style="margin:0; color:#00ff88; letter-spacing:1px;">FERWAP MUSIC ENTERTAINMENT</h3>
+    <p style="margin:4px 0 0 0; font-size:12px; color:#828ca0;">Official Artist Distribution Portal</p>
+  </header>
+
+  <!-- KOTAK UTAMA LOGIN / SIGN UP -->
+  <div style="background:#131822; border:1px solid #1e2638; border-radius:12px; padding:32px; width:100%; max-width:400px; box-shadow:0 8px 24px rgba(0,0,0,0.4); margin: 20px;">
     
     <div style="text-align:center; margin-bottom:24px;">
-      <h2 style="color:#00ff88; margin-bottom:8px;">FERWAP MUSIC</h2>
-      <p style="color:#828ca0; font-size:14px;">Portal Distribusi Artis</p>
+      <h2 style="color:#fff; margin-bottom:8px; font-size:20px;">Akses Portal</h2>
+      <p style="color:#828ca0; font-size:14px;">Masuk atau daftarkan akun artis Anda</p>
     </div>
 
     <!-- Pilihan Tab Login / Sign Up -->
     <div style="display:flex; margin-bottom:20px; border-bottom:1px solid #1e2638;">
-      <button id="tab-login" onclick="switchMode('login')" style="flex:1; padding:10px; background:none; border:none; color:#00ff88; border-bottom:2px solid #00ff88; cursor:pointer; font-weight:bold;">Masuk (Login)</button>
-      <button id="tab-signup" onclick="switchMode('signup')" style="flex:1; padding:10px; background:none; border:none; color:#828ca0; cursor:pointer; font-weight:bold;">Daftar (Sign Up)</button>
+      <button id="tab-login" onclick="switchMode('login')" style="flex:1; padding:10px; background:none; border:none; color:#00ff88; border-bottom:2px solid #00ff88; cursor:pointer; font-weight:bold;">Masuk</button>
+      <button id="tab-signup" onclick="switchMode('signup')" style="flex:1; padding:10px; background:none; border:none; color:#828ca0; cursor:pointer; font-weight:bold;">Daftar</button>
     </div>
 
     <!-- Form Autentikasi -->
     <form id="auth-form" style="display:flex; flex-direction:column; gap:16px;">
       <div id="artist-name-group" style="display:none; flex-direction:column; gap:6px;">
-        <label style="font-size:12px; color:#828ca0;">Nama Artis / Stage Name</label>
+        <label style="font-size:12px; color:#828ca0;">Nama Panggung / Artist Name</label>
         <input type="text" id="artist-name" placeholder="Contoh: ANDER" style="background:#0b0e14; border:1px solid #1e2638; padding:12px; border-radius:6px; color:#fff; outline:none;">
       </div>
 
@@ -42,6 +48,11 @@
       <button type="submit" id="btn-submit" style="background:#00ff88; color:#0b0e14; font-weight:bold; padding:12px; border:none; border-radius:6px; cursor:pointer; margin-top:10px;">Masuk ke Portal</button>
     </form>
   </div>
+
+  <!-- FOOTER DI BAGIAN BAWAH -->
+  <footer style="width:100%; padding:16px; text-align:center; border-top:1px solid #1e2638; background:#0b0e14; font-size:12px; color:#828ca0;">
+    &copy; 2026 Ferwap Music Entertainment. All rights reserved.
+  </footer>
 
   <script>
     const SUPABASE_URL = 'https://fvzayaghmxskcvwbllpr.supabase.co';
