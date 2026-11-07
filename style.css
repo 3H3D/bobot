@@ -8,7 +8,6 @@
   --tc-border: rgba(255, 255, 255, 0.08);
   --tc-green: #10b981;
   --tc-green-glow: rgba(16, 185, 129, 0.25);
-  --tc-accent-blue: #2563eb;
   --tc-text: #ffffff;
   --tc-muted: #828ca0;
 }
@@ -18,7 +17,7 @@ body { background-color: var(--tc-bg-dark); color: var(--tc-text); min-height: 1
 
 .tunecore-layout { display: flex; min-height: 100vh; }
 
-/* SIDEBAR STYLING */
+/* SIDEBAR */
 .tc-sidebar {
   width: 270px;
   background: var(--tc-bg-sidebar);
@@ -56,7 +55,7 @@ body { background-color: var(--tc-bg-dark); color: var(--tc-text); min-height: 1
 .artist-name { font-size: 13px; font-weight: 700; }
 .account-type { font-size: 11px; color: var(--tc-green); font-weight: 600; }
 
-/* MAIN CONTENT */
+/* MAIN */
 .tc-main { flex: 1; padding: 40px 48px; overflow-y: auto; }
 .tc-topbar { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
 .page-headline { font-size: 26px; font-weight: 800; }
