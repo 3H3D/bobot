@@ -17,7 +17,7 @@ body { background-color: var(--tc-bg-dark); color: var(--tc-text); min-height: 1
 
 .tunecore-layout { display: flex; min-height: 100vh; }
 
-/* SIDEBAR */
+/* SIDEBAR STYLING */
 .tc-sidebar {
   width: 270px;
   background: var(--tc-bg-sidebar);
@@ -55,7 +55,7 @@ body { background-color: var(--tc-bg-dark); color: var(--tc-text); min-height: 1
 .artist-name { font-size: 13px; font-weight: 700; }
 .account-type { font-size: 11px; color: var(--tc-green); font-weight: 600; }
 
-/* MAIN */
+/* MAIN CONTENT */
 .tc-main { flex: 1; padding: 40px 48px; overflow-y: auto; }
 .tc-topbar { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
 .page-headline { font-size: 26px; font-weight: 800; }
@@ -73,22 +73,23 @@ body { background-color: var(--tc-bg-dark); color: var(--tc-text); min-height: 1
 }
 .card-header-tc { display: flex; gap: 16px; align-items: center; margin-bottom: 24px; }
 .step-num {
-  font-size: 20px; font-weight: 800; color: var(--tc-green);
+  font-size: 18px; font-weight: 800; color: var(--tc-green);
   background: rgba(16, 185, 129, 0.1); padding: 8px 14px; border-radius: 8px;
 }
 .card-header-tc h3 { font-size: 18px; font-weight: 700; }
 .card-header-tc p { font-size: 13px; color: var(--tc-muted); }
 
-.upload-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+/* FULL-WIDTH DROPZONE */
 .tc-dropzone {
-  border: 2px dashed var(--tc-border); border-radius: 12px; padding: 32px 20px;
+  border: 2px dashed var(--tc-border); border-radius: 12px; padding: 36px 20px;
   text-align: center; background: var(--tc-bg-input); cursor: pointer; transition: 0.2s;
+  width: 100%;
 }
 .tc-dropzone:hover { border-color: var(--tc-green); background: rgba(16, 185, 129, 0.02); }
-.tc-drop-icon { font-size: 36px; color: var(--tc-muted); margin-bottom: 12px; }
-.tc-dropzone h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-.tc-dropzone p { font-size: 13px; color: var(--tc-muted); }
-.tc-hint { font-size: 11px; color: #525b6e; display: block; margin-top: 8px; }
+.tc-drop-icon { font-size: 40px; color: var(--tc-muted); margin-bottom: 12px; }
+.tc-dropzone h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.tc-dropzone p { font-size: 14px; color: var(--tc-muted); }
+.tc-hint { font-size: 12px; color: #525b6e; display: block; margin-top: 8px; }
 
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .input-block label { display: block; font-size: 13px; font-weight: 700; color: #a1abbd; margin-bottom: 8px; }
@@ -103,15 +104,77 @@ input[type="text"]:focus { outline: none; border-color: var(--tc-green); box-sha
 
 .tc-btn-gen {
   background: rgba(16, 185, 129, 0.15); color: var(--tc-green); border: none;
-  padding: 4px 10px; font-size: 11px; font-weight: 700; border-radius: 4px; cursor: pointer;
+  padding: 6px 12px; font-size: 11px; font-weight: 700; border-radius: 4px; cursor: pointer;
 }
 .tc-btn-gen:hover { background: var(--tc-green); color: #000; }
 .field-info { font-size: 11px; color: var(--tc-muted); margin-top: 6px; display: block; }
 
+.form-footer-action { margin-top: 12px; margin-bottom: 40px; }
+
 .tc-btn-submit {
   background: var(--tc-green); color: #000; border: none; padding: 16px 32px;
   border-radius: 10px; font-size: 16px; font-weight: 800; cursor: pointer;
-  display: inline-flex; align-items: center; gap: 10px; transition: 0.2s;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s;
   box-shadow: 0 4px 20px var(--tc-green-glow);
 }
 .tc-btn-submit:hover { transform: translateY(-2px); background: #0ea5e9; color: #fff; }
+
+/* =========================================================
+   RESPONSIVE MEDIA QUERIES (DESAIN TAMPILAN HP / TABLET)
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .tunecore-layout { flex-direction: column; }
+
+  /* Transform Sidebar to Top Mobile Header */
+  .tc-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--tc-border);
+    padding: 16px 20px;
+  }
+
+  .tc-brand { margin-bottom: 16px; }
+
+  .tc-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    gap: 8px;
+  }
+
+  .tc-nav-item {
+    white-space: nowrap;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .tc-user-card { display: none; } /* Sembunyikan user card ringkas di HP */
+
+  .tc-main { padding: 24px 16px; }
+
+  .tc-topbar {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .page-headline { font-size: 22px; }
+  .page-subline { font-size: 13px; }
+
+  .tc-card { padding: 20px 16px; }
+
+  .form-grid {
+    grid-template-columns: 1fr; /* UBAH METADATA MENJADI 1 KOLOM */
+    gap: 16px;
+  }
+
+  .tc-dropzone { padding: 28px 14px; }
+  .tc-drop-icon { font-size: 32px; }
+  .tc-dropzone h4 { font-size: 14px; }
+
+  .tc-btn-submit {
+    width: 100%; /* TOMBOL UTAMA DIPENUHIN DI HP */
+    padding: 16px;
+  }
+}
