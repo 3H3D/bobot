@@ -4,78 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ferwap Music - Artist Portal Access</title>
-  <!-- Font Awesome untuk Ikon Mata -->
+  <!-- Font Awesome untuk Ikon -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body style="display:flex; flex-direction:column; justify-content:space-between; align-items:center; min-height:100vh; margin:0; background-color:#0b0e14; color:#fff; font-family:sans-serif;">
+<body style="display:flex; flex-direction:column; justify-content:space-between; align-items:center; min-height:100vh; margin:0; background-color:#000000; color:#fff; font-family:sans-serif;">
 
-  <!-- HEADER: Logo & Label Name on Left, Support & Feedback on Right -->
-  <header style="width:100%; padding:16px 32px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1e2638; background:#0b0e14; box-sizing:border-box;">
+  <!-- HEADER: Red Accent Border -->
+  <header style="width:100%; padding:16px 32px; display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #ff2a2a; background:#000000; box-sizing:border-box;">
     <div style="display:flex; align-items:center; gap:12px;">
-      <div style="background:#00ff88; color:#0b0e14; font-weight:bold; width:36px; height:36px; display:flex; justify-content:center; align-items:center; border-radius:8px; font-size:16px;">3H</div>
+      <div style="background:#ff2a2a; color:#fff; font-weight:bold; width:36px; height:36px; display:flex; justify-content:center; align-items:center; border-radius:8px; font-size:16px;">3H</div>
       <div>
-        <h3 style="margin:0; color:#00ff88; font-size:16px; letter-spacing:0.5px;">FERWAP MUSIC</h3>
-        <span style="font-size:11px; color:#828ca0;">Official Artist Portal</span>
+        <h3 style="margin:0; color:#ff2a2a; font-size:16px; letter-spacing:0.5px;">FERWAP MUSIC</h3>
+        <span style="font-size:11px; color:#a0a0a0;">Official Artist Portal</span>
       </div>
     </div>
 
     <div style="display:flex; gap:20px; font-size:14px;">
-      <a href="mailto:support@ferwap.com" style="color:#828ca0; text-decoration:none; transition:0.2s;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#828ca0'">Support</a>
-      <a href="#feedback" onclick="alert('Please contact admin via email for feedback or technical support.'); return false;" style="color:#828ca0; text-decoration:none; transition:0.2s;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#828ca0'">Feedback</a>
+      <a href="mailto:support@ferwap.com" style="color:#a0a0a0; text-decoration:none; transition:0.2s;" onmouseover="this.style.color='#ff2a2a'" onmouseout="this.style.color='#a0a0a0'">Support</a>
+      <a href="#feedback" onclick="alert('Please contact admin via email for feedback or technical support.'); return false;" style="color:#a0a0a0; text-decoration:none; transition:0.2s;" onmouseover="this.style.color='#ff2a2a'" onmouseout="this.style.color='#a0a0a0'">Feedback</a>
     </div>
   </header>
 
-  <!-- MAIN AUTH CONTAINER -->
-  <div style="background:#131822; border:1px solid #1e2638; border-radius:12px; padding:32px; width:100%; max-width:400px; box-shadow:0 8px 24px rgba(0,0,0,0.4); margin: 20px;">
+  <!-- MAIN AUTH CONTAINER: Red Border Accent -->
+  <div style="background:#0d0d0d; border:2px solid #ff2a2a; border-radius:12px; padding:32px; width:100%; max-width:400px; box-shadow:0 8px 24px rgba(255,42,42,0.15); margin: 20px;">
     
     <div style="text-align:center; margin-bottom:24px;">
       <h2 style="color:#fff; margin-bottom:8px; font-size:20px;">Portal Access</h2>
-      <p style="color:#828ca0; font-size:14px;">Sign in or create your artist account</p>
+      <p style="color:#a0a0a0; font-size:14px;">Sign in or create your artist account</p>
     </div>
 
     <!-- Mode Selector Tabs -->
-    <div style="display:flex; margin-bottom:20px; border-bottom:1px solid #1e2638;">
-      <button id="tab-login" onclick="switchMode('login')" style="flex:1; padding:10px; background:none; border:none; color:#00ff88; border-bottom:2px solid #00ff88; cursor:pointer; font-weight:bold;">Sign In</button>
-      <button id="tab-signup" onclick="switchMode('signup')" style="flex:1; padding:10px; background:none; border:none; color:#828ca0; cursor:pointer; font-weight:bold;">Sign Up</button>
+    <div style="display:flex; margin-bottom:20px; border-bottom:1px solid #222;">
+      <button id="tab-login" onclick="switchMode('login')" style="flex:1; padding:10px; background:none; border:none; color:#ff2a2a; border-bottom:2px solid #ff2a2a; cursor:pointer; font-weight:bold;">Sign In</button>
+      <button id="tab-signup" onclick="switchMode('signup')" style="flex:1; padding:10px; background:none; border:none; color:#a0a0a0; cursor:pointer; font-weight:bold;">Sign Up</button>
     </div>
 
     <!-- Authentication Form -->
     <form id="auth-form" style="display:flex; flex-direction:column; gap:16px;">
       <div id="artist-name-group" style="display:none; flex-direction:column; gap:6px;">
-        <label style="font-size:12px; color:#828ca0;">Artist / Stage Name</label>
-        <input type="text" id="artist-name" placeholder="e.g. ANDER" style="background:#0b0e14; border:1px solid #1e2638; padding:12px; border-radius:6px; color:#fff; outline:none;">
+        <label style="font-size:12px; color:#a0a0a0;">Artist / Stage Name</label>
+        <input type="text" id="artist-name" placeholder="e.g. ANDER" style="background:#000; border:1px solid #333; padding:12px; border-radius:6px; color:#fff; outline:none;">
       </div>
 
       <div style="display:flex; flex-direction:column; gap:6px;">
-        <label style="font-size:12px; color:#828ca0;">Email Address</label>
-        <input type="email" id="auth-email" placeholder="name@domain.com" required style="background:#0b0e14; border:1px solid #1e2638; padding:12px; border-radius:6px; color:#fff; outline:none;">
+        <label style="font-size:12px; color:#a0a0a0;">Email Address</label>
+        <input type="email" id="auth-email" placeholder="name@domain.com" required style="background:#000; border:1px solid #333; padding:12px; border-radius:6px; color:#fff; outline:none;">
       </div>
 
       <div style="display:flex; flex-direction:column; gap:6px;">
-        <label style="font-size:12px; color:#828ca0;">Password</label>
+        <label style="font-size:12px; color:#a0a0a0;">Password</label>
         <div style="position:relative; display:flex; align-items:center;">
-          <input type="password" id="auth-password" placeholder="••••••••" required style="width:100%; background:#0b0e14; border:1px solid #1e2638; padding:12px 40px 12px 12px; border-radius:6px; color:#fff; outline:none; box-sizing:border-box;">
-          <i id="toggle-password" class="fa-solid fa-eye" onclick="togglePasswordVisibility()" style="position:absolute; right:12px; color:#828ca0; cursor:pointer;"></i>
+          <input type="password" id="auth-password" placeholder="••••••••" required style="width:100%; background:#000; border:1px solid #333; padding:12px 40px 12px 12px; border-radius:6px; color:#fff; outline:none; box-sizing:border-box;">
+          <i id="toggle-password" class="fa-solid fa-eye" onclick="togglePasswordVisibility()" style="position:absolute; right:12px; color:#a0a0a0; cursor:pointer;"></i>
         </div>
       </div>
 
-      <button type="submit" id="btn-submit" style="background:#00ff88; color:#0b0e14; font-weight:bold; padding:12px; border:none; border-radius:6px; cursor:pointer; margin-top:10px;">Sign In to Portal</button>
+      <button type="submit" id="btn-submit" style="background:#ff2a2a; color:#fff; font-weight:bold; padding:12px; border:none; border-radius:6px; cursor:pointer; margin-top:10px; transition:0.2s;" onmouseover="this.style.background='#e02424'" onmouseout="this.style.background='#ff2a2a'">Sign In to Portal</button>
     </form>
   </div>
 
-  <!-- Footer Section -->
-  <footer class="site-footer">
-    <div class="social-icons">
-      <a href="https://www.facebook.com/ferwapmusic" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-      <a href="https://www.instagram.com/ferwapmusic" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-      <a href="ferwapmusic.info@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+  <!-- FOOTER: Red Accent Border -->
+  <footer class="site-footer" style="width:100%; padding:20px; text-align:center; border-top:2px solid #ff2a2a; background:#000000; color:#a0a0a0; font-size:12px;">
+    <div class="social-icons" style="margin-bottom:10px; display:flex; justify-content:center; gap:16px;">
+      <a href="https://www.facebook.com/ferwapmusic" aria-label="Facebook" style="color:#a0a0a0; text-decoration:none;" onmouseover="this.style.color='#ff2a2a'" onmouseout="this.style.color='#a0a0a0'"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/ferwapmusic" aria-label="Instagram" style="color:#a0a0a0; text-decoration:none;" onmouseover="this.style.color='#ff2a2a'" onmouseout="this.style.color='#a0a0a0'"><i class="fa-brands fa-instagram"></i></a>
+      <a href="mailto:ferwapmusic.info@gmail.com" aria-label="Email" style="color:#a0a0a0; text-decoration:none;" onmouseover="this.style.color='#ff2a2a'" onmouseout="this.style.color='#a0a0a0'"><i class="fa-solid fa-envelope"></i></a>
     </div>
-    <p class="copyright">&copy; 2026 Ferwap Music Entertainment. All Rights Reserved.</p>
-    <div class="footer-links">
-      <a href="https://ferwap.com/privacy">Privacy Policy</a> | 
-      <a href="https://ferwap.com/terms">Terms of Service</a> | 
-      <a href="https://ferwap.com/copyright">Copyright</a>
+    <p class="copyright" style="margin:6px 0;">&copy; 2026 Ferwap Music Entertainment. All Rights Reserved.</p>
+    <div class="footer-links" style="margin-top:6px;">
+      <a href="https://ferwap.com/privacy" style="color:#a0a0a0; text-decoration:none;" onmouseover="this.style.color='#ff2a2a'" onmouseout="this.style.color='#a0a0a0'">Privacy Policy</a> | 
+      <a href="https://ferwap.com/terms" style="color:#a0a0a0; text-decoration:none;" onmouseover="this.style.color='#ff2a2a'" onmouseout="this.style.color='#a0a0a0'">Terms of Service</a> | 
+      <a href="https://ferwap.com/copyright" style="color:#a0a0a0; text-decoration:none;" onmouseover="this.style.color='#ff2a2a'" onmouseout="this.style.color='#a0a0a0'">Copyright</a>
     </div>
   </footer>
 
@@ -108,16 +108,16 @@
       const btnSubmit = document.getElementById('btn-submit');
 
       if (mode === 'signup') {
-        tabSignup.style.color = '#00ff88';
-        tabSignup.style.borderBottom = '2px solid #00ff88';
-        tabLogin.style.color = '#828ca0';
+        tabSignup.style.color = '#ff2a2a';
+        tabSignup.style.borderBottom = '2px solid #ff2a2a';
+        tabLogin.style.color = '#a0a0a0';
         tabLogin.style.borderBottom = 'none';
         nameGroup.style.display = 'flex';
         btnSubmit.innerText = 'Create Account';
       } else {
-        tabLogin.style.color = '#00ff88';
-        tabLogin.style.borderBottom = '2px solid #00ff88';
-        tabSignup.style.color = '#828ca0';
+        tabLogin.style.color = '#ff2a2a';
+        tabLogin.style.borderBottom = '2px solid #ff2a2a';
+        tabSignup.style.color = '#a0a0a0';
         tabSignup.style.borderBottom = 'none';
         nameGroup.style.display = 'none';
         btnSubmit.innerText = 'Sign In to Portal';
