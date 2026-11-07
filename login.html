@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ferwap Music - Artist Portal Access</title>
+  <title>ferwapdistro</title>
   <!-- Font Awesome untuk Ikon -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -16,7 +16,7 @@
       <div style="background:#ff2a2a; color:#fff; font-weight:bold; width:36px; height:36px; display:flex; justify-content:center; align-items:center; border-radius:8px; font-size:16px;">3H</div>
       <div>
         <h3 style="margin:0; color:#ff2a2a; font-size:16px; letter-spacing:0.5px;">FERWAP MUSIC</h3>
-        <span style="font-size:11px; color:#a0a0a0;">Official Artist Portal</span>
+        <span style="font-size:11px; color:#a0a0a0;">distribution</span>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
     
     <div style="text-align:center; margin-bottom:24px;">
       <h2 style="color:#fff; margin-bottom:8px; font-size:20px;">Portal Access</h2>
-      <p style="color:#a0a0a0; font-size:14px;">Sign in or create your artist account</p>
+      <p style="color:#a0a0a0; font-size:14px;">Sign in or create your account</p>
     </div>
 
     <!-- Mode Selector Tabs -->
@@ -43,19 +43,19 @@
     <!-- Authentication Form -->
     <form id="auth-form" style="display:flex; flex-direction:column; gap:16px;">
       <div id="artist-name-group" style="display:none; flex-direction:column; gap:6px;">
-        <label style="font-size:12px; color:#a0a0a0;">Artist / Stage Name</label>
-        <input type="text" id="artist-name" placeholder="e.g. ANDER" style="background:#000; border:1px solid #333; padding:12px; border-radius:6px; color:#fff; outline:none;">
+        <label style="font-size:12px; color:#a0a0a0;">Name</label>
+        <input type="text" id="artist-name" placeholder="Stage Name" style="background:#000; border:1px solid #333; padding:12px; border-radius:6px; color:#fff; outline:none;">
       </div>
 
       <div style="display:flex; flex-direction:column; gap:6px;">
         <label style="font-size:12px; color:#a0a0a0;">Email Address</label>
-        <input type="email" id="auth-email" placeholder="name@domain.com" required style="background:#000; border:1px solid #333; padding:12px; border-radius:6px; color:#fff; outline:none;">
+        <input type="email" id="auth-email" placeholder="Email" required style="background:#000; border:1px solid #333; padding:12px; border-radius:6px; color:#fff; outline:none;">
       </div>
 
       <div style="display:flex; flex-direction:column; gap:6px;">
         <label style="font-size:12px; color:#a0a0a0;">Password</label>
         <div style="position:relative; display:flex; align-items:center;">
-          <input type="password" id="auth-password" placeholder="••••••••" required style="width:100%; background:#000; border:1px solid #333; padding:12px 40px 12px 12px; border-radius:6px; color:#fff; outline:none; box-sizing:border-box;">
+          <input type="password" id="auth-password" placeholder="Password" required style="width:100%; background:#000; border:1px solid #333; padding:12px 40px 12px 12px; border-radius:6px; color:#fff; outline:none; box-sizing:border-box;">
           <i id="toggle-password" class="fa-solid fa-eye" onclick="togglePasswordVisibility()" style="position:absolute; right:12px; color:#a0a0a0; cursor:pointer;"></i>
         </div>
       </div>
