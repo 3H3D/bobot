@@ -131,55 +131,71 @@ input[type="text"]:focus { outline: none; border-color: var(--tc-red); box-shado
    PENGATURAN KHUSUS LAYAR HP / PONSEL (AGAR TIDAK BERANTAKAN)
    ========================================================= */
 @media screen and (max-width: 900px) {
+  /* Ubah layout utama menjadi satu kolom ke bawah */
   .tunecore-layout {
-    flex-direction: column; /* Membuat susunan atas-bawah khusus di HP */
+    flex-direction: column;
     height: auto;
   }
 
-  .tc-sidebar {
-    width: 100%;
-    min-width: 100%;
-    height: auto;
-    position: relative;
-    border-right: none;
-    border-bottom: 1px solid var(--tc-border);
-    padding: 16px 20px;
+  /* Header Atas di HP agar menyesuaikan lebar layar */
+  .top-header-banner {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 16px !important;
+    padding: 16px 20px !important;
   }
 
+  /* Menu Navigasi di HP bisa digeser ke samping (Horizontal Scroll) */
   .tc-nav {
-    flex-direction: row; /* Menu berjajar ke samping agar mudah diklik di HP */
+    flex-direction: row !important;
     overflow-x: auto;
     gap: 8px;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
+    width: 100%;
+    scrollbar-width: none; /* Hilangkan scrollbar di Firefox */
+  }
+  
+  .tc-nav::-webkit-scrollbar {
+    display: none; /* Hilangkan scrollbar di Chrome/Safari */
   }
 
   .tc-nav-item {
     white-space: nowrap;
-    padding: 10px 14px;
-    font-size: 13px;
+    padding: 8px 12px;
+    font-size: 12px;
+    flex-shrink: 0;
   }
 
+  /* Kartu Profil Artis menyesuaikan lebar di HP */
   .tc-user-card {
-    margin-top: 12px; /* Kartu profil artis tetap rapi di bagian bawah header HP */
+    width: 100%;
+    justify-content: flex-start;
   }
 
+  /* Konten utama di HP */
   .tc-main {
     height: auto;
-    padding: 24px 16px; /* Padding lebih pas untuk layar ponsel */
+    padding: 20px 16px !important;
     width: 100%;
   }
 
+  /* Form input menjadi 1 kolom ke bawah agar tidak gepeng */
   .form-grid {
-    grid-template-columns: 1fr; /* Kolom input form menjadi 1 baris ke bawah agar tidak gepeng di HP */
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
-  .tc-topbar {
-    flex-direction: column;
-    align-items: flex-start;
+  /* Tombol Submit memenuhi lebar layar HP agar mudah ditekan */
+  .tc-btn-submit {
+    width: 100%;
   }
 
-  .tc-btn-submit {
-    width: 100%; /* Tombol submit memenuhi lebar layar HP */
+  /* Kartu Upload dan Form di HP */
+  .tc-card {
+    padding: 20px 16px;
+  }
+
+  .upload-row {
+    grid-template-columns: 1fr !important;
   }
 }
