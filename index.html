@@ -78,12 +78,12 @@
               <div class="upload-row">
                 <!-- Audio Dropzone -->
                 <div class="tc-dropzone" onclick="document.getElementById('audio-input').click()">
-                  <input type="file" id="audio-input" accept=".wav" hidden onchange="handleAudioSelect(this)">
+                  <input type="file" id="audio-input" accept=".wav,.flac" hidden onchange="handleAudioSelect(this)">
                   <div id="audio-drop-content">
                     <i class="fa-solid fa-file-waveform tc-drop-icon"></i>
                     <h4>Master Audio (.WAV / .FLAC)</h4>
                     <p id="audio-status-text">Click or drop audio file here</p>
-                   <span class="tc-hint">WAV 16-bit / 44.1kHz or FLAC Lossless</span>
+                    <span class="tc-hint">WAV 16-bit / 44.1kHz or FLAC Lossless</span>
                   </div>
                 </div>
 
@@ -100,43 +100,25 @@
               </div>
             </div>
 
-            <!-- SECTION 2: METADATA & CODES -->
+            <!-- SECTION 2: METADATA (AUTOMATED CODES) -->
             <div class="tc-card">
               <div class="card-header-tc">
                 <span class="step-num">02</span>
                 <div>
                   <h3>Release Metadata</h3>
-                  <p>Essential tracking codes and release identifiers.</p>
+                  <p>Enter your track details. Tracking codes (ISRC & UPC) will be generated automatically upon submission.</p>
                 </div>
               </div>
 
               <div class="form-grid">
-                <div class="input-block">
+                <div class="input-block" style="grid-column: span 2;">
                   <label>Release Title</label>
                   <input type="text" id="title-input" placeholder="e.g. Song Title" required>
                 </div>
 
-                <div class="input-block">
+                <div class="input-block" style="grid-column: span 2;">
                   <label>Display Artist</label>
                   <input type="text" id="artist-input" placeholder="e.g. 3H3D" required>
-                </div>
-
-                <div class="input-block">
-                  <div class="label-flex">
-                    <label>UPC Code</label>
-                    <button type="button" class="tc-btn-gen" onclick="autoGenUPC()">Generate UPC</button>
-                  </div>
-                  <input type="text" id="upc-input" placeholder="12-Digit UPC / EAN" required>
-                  <span class="field-info">Leave blank or auto-generate if none.</span>
-                </div>
-
-                <div class="input-block">
-                  <div class="label-flex">
-                    <label>ISRC Code</label>
-                    <button type="button" class="tc-btn-gen" onclick="autoGenISRC()">Generate ISRC</button>
-                  </div>
-                  <input type="text" id="isrc-input" placeholder="ID-FRW-26-00001" required>
-                  <span class="field-info">Unique audio track recording code.</span>
                 </div>
               </div>
             </div>
@@ -202,7 +184,7 @@
         </section>
       </div>
 
-      <!-- FOOTER: Full Red Background dengan 4 Kolom Persis Seperti Halaman Login -->
+      <!-- FOOTER -->
       <footer class="site-footer" style="width:100%; background:#ff2a2a; color:#fff; font-size:13px; box-sizing:border-box; padding:40px 32px; margin-top:40px;">
         <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:30px;">
           
