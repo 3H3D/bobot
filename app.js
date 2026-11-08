@@ -4,14 +4,30 @@ const SUPABASE_PUBLISHABLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiO
 // Inisialisasi Klien Supabase
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-// Pengecekan Sesi Login Artis
+// Pengecekan Sesi Login Artis & Ambil Data Profil Otomatis
 async function checkAuth() {
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (!session) {
     window.location.href = 'login.html';
+  } else {
+    // Otomatis update nama dan inisial di pojok kiri bawah
+    updateUserInfo(session);
   }
 }
 checkAuth();
+
+// Fungsi untuk memasukkan nama & inisial akun yang login ke pojok kiri bawah secara otomatis
+function updateUserInfo(session) {
+  const userEmail = session.user.email || "Artist";
+  const artistName = userEmail.split('@')[0].toUpperCase();
+  const artistInitial = artistName.charAt(0);
+
+  const nameElement = document.getElementById('user-display-name');
+  const avatarElement = document.getElementById('user-avatar');
+
+  if (nameElement) nameElement.innerText = artistName;
+  if (avatarElement) avatarElement.innerText = artistInitial;
+}
 
 // Navigasi Menu
 function navigateTo(sectionId, clickedElement) {
