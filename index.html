@@ -11,37 +11,35 @@
 
   <div class="tunecore-layout" style="display:flex; flex-direction:column; min-height:100vh;">
     
-    <!-- HEADER UTAMA (SUDAH DIATUR RATA TENGAH SAMA DENGAN KONTEN) -->
-    <header class="top-header-banner" style="background: #07090f; border-bottom: 1px solid #1f2937; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box;">
+    <!-- HEADER UTAMA (LATAR HITAM FULL-WIDTH SELEBAR LAYAR, MENU DI TENGAH) -->
+    <header class="top-header-banner" style="background: #07090f; border-bottom: 1px solid #1f2937; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; width: 100%; box-sizing: border-box;">
       
-      <!-- KIRI: BRAND & MENU NAVIGASI BERBARIS KE SAMPING -->
-      <div style="display: flex; align-items: center; gap: 40px;">
-        <div class="tc-brand" style="display: flex; align-items: center; gap: 12px;">
-          <div class="brand-logo" style="background: #ff2a2a; color: #fff; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-            <i class="fa-solid fa-bolt-lightning"></i>
-          </div>
-          <div class="brand-name">
-            <h2 style="margin: 0; font-size: 18px;">FERWAP</h2>
-            <span style="font-size: 12px; color: #888;">Ferwap Group</span>
-          </div>
+      <!-- KIRI: BRAND FERWAP -->
+      <div class="tc-brand" style="display: flex; align-items: center; gap: 12px;">
+        <div class="brand-logo" style="background: #ff2a2a; color: #fff; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+          <i class="fa-solid fa-bolt-lightning"></i>
         </div>
-
-        <!-- Menu Navigasi Berjajar dari Kiri ke Kanan -->
-        <nav class="tc-nav" style="display: flex; flex-direction: row; gap: 12px; align-items: center;">
-          <a href="index.html" class="tc-nav-item active" style="color: #fff; background: #111827; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
-            <i class="fa-solid fa-cloud-arrow-up"></i> New Release
-          </a>
-          <a href="catalog.html" class="tc-nav-item" style="color: #a0a0a0; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
-            <i class="fa-solid fa-compact-disc"></i> My Catalog
-          </a>
-          <a href="analytics.html" class="tc-nav-item" style="color: #a0a0a0; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
-            <i class="fa-solid fa-chart-line"></i> Analytics
-          </a>
-          <a href="royalties.html" class="tc-nav-item" style="color: #a0a0a0; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
-            <i class="fa-solid fa-wallet"></i> Royalties
-          </a>
-        </nav>
+        <div class="brand-name">
+          <h2 style="margin: 0; font-size: 18px;">FERWAP</h2>
+          <span style="font-size: 12px; color: #888;">Ferwap Group</span>
+        </div>
       </div>
+
+      <!-- TENGAH: MENU NAVIGASI BERJAJAR KE TENGAH -->
+      <nav class="tc-nav" style="display: flex; flex-direction: row; gap: 12px; align-items: center;">
+        <a href="index.html" class="tc-nav-item active" style="color: #fff; background: #111827; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
+          <i class="fa-solid fa-cloud-arrow-up"></i> New Release
+        </a>
+        <a href="catalog.html" class="tc-nav-item" style="color: #a0a0a0; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
+          <i class="fa-solid fa-compact-disc"></i> My Catalog
+        </a>
+        <a href="analytics.html" class="tc-nav-item" style="color: #a0a0a0; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
+          <i class="fa-solid fa-chart-line"></i> Analytics
+        </a>
+        <a href="royalties.html" class="tc-nav-item" style="color: #a0a0a0; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
+          <i class="fa-solid fa-wallet"></i> Royalties
+        </a>
+      </nav>
 
       <!-- KANAN: PROFIL ARTIS DI UJUNG KANAN -->
       <div class="tc-user-card" style="display: flex; align-items: center; gap: 12px; background: #111; padding: 8px 14px; border-radius: 8px; border: 1px solid #222;">
