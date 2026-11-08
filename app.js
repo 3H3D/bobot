@@ -172,7 +172,7 @@ document.getElementById('artist-release-form').addEventListener('submit', async 
   if (audioFile) {
     const audioFileName = `${session.user.id}/${Date.now()}_${audioFile.name}`;
     const { data: audioData, error: audioError } = await supabaseClient.storage
-      .from('Release Official')
+      .from('releases')
       .upload(audioFileName, audioFile);
 
     if (audioError) {
@@ -188,7 +188,7 @@ document.getElementById('artist-release-form').addEventListener('submit', async 
   if (coverFile) {
     const coverFileName = `${session.user.id}/${Date.now()}_${coverFile.name}`;
     const { data: coverData, error: coverError } = await supabaseClient.storage
-      .from('Release Official')
+      .from('releases')
       .upload(coverFileName, coverFile);
 
     if (coverError) {
