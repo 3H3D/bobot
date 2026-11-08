@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ferwap</title>
+  <title>Ferwap Music Distribution</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -27,15 +27,12 @@
         <a href="#new-release" onclick="navigateTo('section-new-release', this);" class="tc-nav-item active">
           <i class="fa-solid fa-cloud-arrow-up"></i> New Release
         </a>
-        
         <a href="#my-catalog" onclick="navigateTo('section-my-catalog', this);" class="tc-nav-item">
           <i class="fa-solid fa-compact-disc"></i> My Catalog
         </a>
-        
-       <a href="#analytics" onclick="navigateTo('section-analytics', this);" class="tc-nav-item">
+        <a href="#analytics" onclick="navigateTo('section-analytics', this);" class="tc-nav-item">
           <i class="fa-solid fa-chart-line"></i> Analytics
         </a>
-        
         <a href="#royalties" onclick="navigateTo('section-royalties', this);" class="tc-nav-item">
           <i class="fa-solid fa-wallet"></i> Royalties
         </a>
@@ -53,105 +50,156 @@
     <!-- MAIN PORTAL CONTENT -->
     <main class="tc-main">
       
-      <!-- TOPBAR -->
-      <header class="tc-topbar">
-        <div>
-          <h1 class="page-headline">New Release Distribution</h1>
-          <p class="page-subline">Submit your master audio for global delivery to Spotify, Apple Music, TikTok, and DSPs worldwide.</p>
-        </div>
-        <div class="badge-direct">
-          <i class="fa-solid fa-globe"></i> Pipeline Active
-        </div>
-      </header>
-
-      <!-- RELEASE FORM -->
-      <form id="artist-release-form" class="tc-form-container">
-        
-        <!-- SECTION 1: MEDIA UPLOAD -->
-        <div class="tc-card">
-          <div class="card-header-tc">
-            <span class="step-num">01</span>
-            <div>
-              <h3>Media Assets</h3>
-              <p>Upload uncompressed master audio and high-resolution artwork.</p>
-            </div>
+      <!-- KONTEN 1: NEW RELEASE (FORMULIR UTAMA) -->
+      <section id="section-new-release" class="app-section">
+        <header class="tc-topbar">
+          <div>
+            <h1 class="page-headline">New Release Distribution</h1>
+            <p class="page-subline">Submit your master audio for global delivery to Spotify, Apple Music, TikTok, and DSPs worldwide.</p>
           </div>
+          <div class="badge-direct">
+            <i class="fa-solid fa-globe"></i> Pipeline Active
+          </div>
+        </header>
 
-          <div class="upload-row">
-            <!-- Audio Dropzone -->
-            <div class="tc-dropzone" onclick="document.getElementById('audio-input').click()">
-              <input type="file" id="audio-input" accept=".wav" hidden onchange="handleAudioSelect(this)">
-              <div id="audio-drop-content">
-                <i class="fa-solid fa-file-waveform tc-drop-icon"></i>
-                <h4>Master Audio (.WAV)</h4>
-                <p id="audio-status-text">Click or drop audio file here</p>
-                <span class="tc-hint">WAV 16-bit / 44.1kHz minimum</span>
+        <form id="artist-release-form" class="tc-form-container">
+          
+          <!-- SECTION 1: MEDIA UPLOAD -->
+          <div class="tc-card">
+            <div class="card-header-tc">
+              <span class="step-num">01</span>
+              <div>
+                <h3>Media Assets</h3>
+                <p>Upload uncompressed master audio and high-resolution artwork.</p>
               </div>
             </div>
 
-            <!-- Artwork Dropzone -->
-            <div class="tc-dropzone" onclick="document.getElementById('cover-input').click()">
-              <input type="file" id="cover-input" accept="image/jpeg, image/png" hidden onchange="handleCoverSelect(this)">
-              <div id="cover-drop-content">
-                <i class="fa-solid fa-image tc-drop-icon"></i>
-                <h4>Cover Art (Artwork)</h4>
-                <p id="cover-status-text">Click or drop cover image</p>
-                <span class="tc-hint">JPG/PNG (Min. 3000 x 3000px)</span>
+            <div class="upload-row">
+              <!-- Audio Dropzone -->
+              <div class="tc-dropzone" onclick="document.getElementById('audio-input').click()">
+                <input type="file" id="audio-input" accept=".wav" hidden onchange="handleAudioSelect(this)">
+                <div id="audio-drop-content">
+                  <i class="fa-solid fa-file-waveform tc-drop-icon"></i>
+                  <h4>Master Audio (.WAV)</h4>
+                  <p id="audio-status-text">Click or drop audio file here</p>
+                  <span class="tc-hint">WAV 16-bit / 44.1kHz minimum</span>
+                </div>
+              </div>
+
+              <!-- Artwork Dropzone -->
+              <div class="tc-dropzone" onclick="document.getElementById('cover-input').click()">
+                <input type="file" id="cover-input" accept="image/jpeg, image/png" hidden onchange="handleCoverSelect(this)">
+                <div id="cover-drop-content">
+                  <i class="fa-solid fa-image tc-drop-icon"></i>
+                  <h4>Cover Art (Artwork)</h4>
+                  <p id="cover-status-text">Click or drop cover image</p>
+                  <span class="tc-hint">JPG/PNG (Min. 3000 x 3000px)</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- SECTION 2: METADATA & CODES -->
-        <div class="tc-card">
-          <div class="card-header-tc">
-            <span class="step-num">02</span>
-            <div>
-              <h3>Release Metadata</h3>
-              <p>Essential tracking codes and release identifiers.</p>
+          <!-- SECTION 2: METADATA & CODES -->
+          <div class="tc-card">
+            <div class="card-header-tc">
+              <span class="step-num">02</span>
+              <div>
+                <h3>Release Metadata</h3>
+                <p>Essential tracking codes and release identifiers.</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="input-block">
+                <label>Release Title</label>
+                <input type="text" id="title-input" placeholder="e.g. Song Title" required>
+              </div>
+
+              <div class="input-block">
+                <label>Display Artist</label>
+                <input type="text" id="artist-input" placeholder="e.g. 3H3D" required>
+              </div>
+
+              <div class="input-block">
+                <div class="label-flex">
+                  <label>UPC Code</label>
+                  <button type="button" class="tc-btn-gen" onclick="autoGenUPC()">Generate UPC</button>
+                </div>
+                <input type="text" id="upc-input" placeholder="12-Digit UPC / EAN" required>
+                <span class="field-info">Leave blank or auto-generate if none.</span>
+              </div>
+
+              <div class="input-block">
+                <div class="label-flex">
+                  <label>ISRC Code</label>
+                  <button type="button" class="tc-btn-gen" onclick="autoGenISRC()">Generate ISRC</button>
+                </div>
+                <input type="text" id="isrc-input" placeholder="ID-FRW-26-00001" required>
+                <span class="field-info">Unique audio track recording code.</span>
+              </div>
             </div>
           </div>
 
-          <div class="form-grid">
-            <div class="input-block">
-              <label>Release Title</label>
-              <input type="text" id="title-input" placeholder="e.g. Song Title" required>
-            </div>
+          <!-- SUBMIT ACTION -->
+          <div class="form-footer-action">
+            <button type="submit" class="tc-btn-submit">
+              <i class="fa-solid fa-paper-plane"></i> Submit Release for Distribution
+            </button>
+          </div>
 
-            <div class="input-block">
-              <label>Display Artist</label>
-              <input type="text" id="artist-input" placeholder="e.g. 3H3D" required>
-            </div>
+        </form>
+      </section>
 
-            <!-- UPC & ISRC -->
-            <div class="input-block">
-              <div class="label-flex">
-                <label>UPC Code</label>
-                <button type="button" class="tc-btn-gen" onclick="autoGenUPC()">Generate UPC</button>
-              </div>
-              <input type="text" id="upc-input" placeholder="12-Digit UPC / EAN" required>
-              <span class="field-info">Leave blank or auto-generate if none.</span>
-            </div>
-
-            <div class="input-block">
-              <div class="label-flex">
-                <label>ISRC Code</label>
-                <button type="button" class="tc-btn-gen" onclick="autoGenISRC()">Generate ISRC</button>
-              </div>
-              <input type="text" id="isrc-input" placeholder="ID-FRW-26-00001" required>
-              <span class="field-info">Unique audio track recording code.</span>
+      <!-- KONTEN 2: MY CATALOG -->
+      <section id="section-my-catalog" class="app-section" style="display: none;">
+        <header class="tc-topbar">
+          <div>
+            <h1 class="page-headline">My Catalog</h1>
+            <p class="page-subline">Manage your distributed releases, tracks, and store delivery statuses.</p>
+          </div>
+        </header>
+        <div class="tc-form-container">
+          <div class="tc-card" style="padding: 24px;">
+            <div id="catalog-list" style="color:#a0a0a0;">
+              Loading release catalog...
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- SUBMIT ACTION -->
-        <div class="form-footer-action">
-          <button type="submit" class="tc-btn-submit">
-            <i class="fa-solid fa-paper-plane"></i> Submit Release for Distribution
-          </button>
+      <!-- KONTEN 3: ANALYTICS -->
+      <section id="section-analytics" class="app-section" style="display: none;">
+        <header class="tc-topbar">
+          <div>
+            <h1 class="page-headline">Streaming Analytics</h1>
+            <p class="page-subline">Track your real-time streams, audience demographics, and DSP performance metrics.</p>
+          </div>
+        </header>
+        <div class="tc-form-container">
+          <div class="tc-card" style="padding: 40px; text-align:center;">
+            <i class="fa-solid fa-chart-line" style="font-size:48px; color:#ff2a2a; margin-bottom:16px;"></i>
+            <h3 style="color:#fff; margin-bottom:8px;">Analytics Engine Connected</h3>
+            <p style="color:#a0a0a0; font-size:14px;">Your streaming data feeds will synchronize here automatically.</p>
+          </div>
         </div>
+      </section>
 
-      </form>
+      <!-- KONTEN 4: ROYALTIES -->
+      <section id="section-royalties" class="app-section" style="display: none;">
+        <header class="tc-topbar">
+          <div>
+            <h1 class="page-headline">Royalty Statements</h1>
+            <p class="page-subline">Review your earnings, financial reports, and payout balances.</p>
+          </div>
+        </header>
+        <div class="tc-form-container">
+          <div class="tc-card" style="padding: 24px;">
+            <h3 style="color:#ff2a2a; margin-top:0;">Total Earnings: $0.00</h3>
+            <p style="color:#a0a0a0; font-size:13px; margin: 0;">Financial statements and payout breakdowns will update at the end of each accounting cycle.</p>
+          </div>
+        </div>
+      </section>
+
     </main>
 
   </div>
