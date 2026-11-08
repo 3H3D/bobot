@@ -10,16 +10,33 @@ async function checkAuth() {
   if (!session) {
     window.location.href = 'login.html';
   } else {
-    // Otomatis update nama dan inisial di pojok kiri bawah
+    // Tarik nama artis dari database secara otomatis
     updateUserInfo(session);
   }
 }
 checkAuth();
 
-// Fungsi untuk memasukkan nama & inisial akun yang login ke pojok kiri bawah secara otomatis
-function updateUserInfo(session) {
-  const userEmail = session.user.email || "Artist";
-  const artistName = userEmail.split('@')[0].toUpperCase();
+// Fungsi untuk menarik nama artis langsung dari database Supabase
+async function updateUserInfo(session) {
+  const userId = session.user.id;
+
+  // Mengambil nama artis dari tabel 'profiles'
+  const { data, error } = await supabaseClient
+    .from('profiles')
+    .select('artist_name')
+    .eq('id', userId)
+    .single();
+
+  let artistName = "ARTIST";
+  
+  if (!error && data && data.artist_name) {
+    artistName = data.artist_name.toUpperCase();
+  } else {
+    // Cadangan jika belum terdaftar di tabel profiles, ambil dari depan email
+    const userEmail = session.user.email || "Artist";
+    artistName = userEmail.split('@')[0].toUpperCase();
+  }
+
   const artistInitial = artistName.charAt(0);
 
   const nameElement = document.getElementById('user-display-name');
