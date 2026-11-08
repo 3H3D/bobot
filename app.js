@@ -70,6 +70,7 @@ function navigateTo(sectionId, clickedElement) {
 // Ambil Data Katalog Rilis (Khusus Tampilan Artis - Tanpa Tombol Delete)
 async function loadCatalogData() {
   const catalogContainer = document.getElementById('catalog-list');
+  if (!catalogContainer) return;
   catalogContainer.innerHTML = 'Loading catalog data...';
 
   const { data: { session } } = await supabaseClient.auth.getSession();
@@ -167,11 +168,11 @@ document.getElementById('artist-release-form').addEventListener('submit', async 
   let audioUrl = '';
   let coverUrl = '';
 
-  // 1. Upload File Audio ke Supabase Storage (Bucket: audio-assets)
+  // 1. Upload File Audio ke Supabase Storage (Bucket: Release Official)
   if (audioFile) {
     const audioFileName = `${session.user.id}/${Date.now()}_${audioFile.name}`;
     const { data: audioData, error: audioError } = await supabaseClient.storage
-      .from('audio-assets')
+      .from('Release Official')
       .upload(audioFileName, audioFile);
 
     if (audioError) {
@@ -183,11 +184,11 @@ document.getElementById('artist-release-form').addEventListener('submit', async 
     audioUrl = audioData.path;
   }
 
-  // 2. Upload Cover Art ke Supabase Storage (Bucket: cover-art)
+  // 2. Upload Cover Art ke Supabase Storage (Bucket: Release Official)
   if (coverFile) {
     const coverFileName = `${session.user.id}/${Date.now()}_${coverFile.name}`;
     const { data: coverData, error: coverError } = await supabaseClient.storage
-      .from('cover-art')
+      .from('Release Official')
       .upload(coverFileName, coverFile);
 
     if (coverError) {
