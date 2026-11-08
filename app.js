@@ -12,32 +12,28 @@ async function checkAuth() {
 }
 checkAuth();
 
-// Fungsi untuk mengganti tampilan menu utama & mengatur efek aktif pada tombol sidebar
+// Navigasi Menu
 function navigateTo(sectionId, clickedElement) {
-  // 1. Sembunyikan semua seksi konten
   const sections = document.querySelectorAll('.app-section');
   sections.forEach(sec => sec.style.display = 'none');
 
-  // 2. Tampilkan seksi yang dipilih
   const targetSection = document.getElementById(sectionId);
   if (targetSection) {
     targetSection.style.display = 'block';
   }
 
-  // 3. Atur kelas 'active' pada tombol navigasi sidebar
   const navItems = document.querySelectorAll('.tc-nav-item');
   navItems.forEach(item => item.classList.remove('active'));
   if (clickedElement) {
     clickedElement.classList.add('active');
   }
 
-  // 4. Muat data katalog otomatis jika menu 'My Catalog' diklik
   if (sectionId === 'section-my-catalog') {
     loadCatalogData();
   }
 }
 
-// Fungsi Mengambil Data Katalog Rilis dari Supabase Database
+// Ambil Data Katalog Rilis (Beserta Tombol Hapus)
 async function loadCatalogData() {
   const catalogContainer = document.getElementById('catalog-list');
   catalogContainer.innerHTML = 'Loading catalog data...';
@@ -48,7 +44,6 @@ async function loadCatalogData() {
     return;
   }
 
-  // Tarik data rilis milik user dari tabel releases Supabase
   const { data: releases, error } = await supabaseClient
     .from('releases')
     .select('*')
@@ -64,7 +59,6 @@ async function loadCatalogData() {
     return;
   }
 
-  // Tampilkan data rilis ke dalam bentuk daftar ringkas
   let html = '<div style="display:flex; flex-direction:column; gap:12px;">';
   releases.forEach(rel => {
     html += `
@@ -73,9 +67,14 @@ async function loadCatalogData() {
           <h4 style="margin:0; color:#fff;">${rel.title || 'Untitled'}</h4>
           <span style="font-size:12px; color:#a0a0a0;">Artist: ${rel.artist || '-'}</span>
         </div>
-        <div style="text-align:right; font-size:12px; color:#888;">
-          <div>UPC: ${rel.upc || '-'}</div>
-          <div>ISRC: ${rel.isrc || '-'}</div>
+        <div style="display:flex; align-items:center; gap:20px;">
+          <div style="text-align:right; font-size:12px; color:#888;">
+            <div>UPC: ${rel.upc || '-'}</div>
+            <div>ISRC: ${rel.isrc || '-'}</div>
+          </div>
+          <button onclick="deleteRelease('${rel.id}')" style="background:#ff2a2a; color:#fff; border:none; padding:6px 12px; border-radius:4px; cursor:pointer; font-size:12px;">
+            <i class="fa-solid fa-trash"></i> Delete
+          </button>
         </div>
       </div>
     `;
@@ -85,13 +84,29 @@ async function loadCatalogData() {
   catalogContainer.innerHTML = html;
 }
 
-// Generator Otomatis UPC (12-digit)
+// Fungsi Hapus Lagu dari Supabase
+async function deleteRelease(releaseId) {
+  if (!confirm("Are you sure you want to delete this release?")) return;
+
+  const { error } = await supabaseClient
+    .from('releases')
+    .delete()
+    .eq('id', releaseId);
+
+  if (error) {
+    alert("Failed to delete: " + error.message);
+  } else {
+    alert("Release deleted successfully.");
+    loadCatalogData(); // Refresh tampilan katalog
+  }
+}
+
+// Generator Kode Otomatis
 function generateAutoUPC() {
   const randomSuffix = Math.floor(10000000000 + Math.random() * 90000000000);
   return `83${randomSuffix}`;
 }
 
-// Generator Otomatis ISRC (Standar ID-FRW-26-XXXXX)
 function generateAutoISRC() {
   const random5Digits = Math.floor(10000 + Math.random() * 90000);
   return `ID-FRW-26-${random5Digits}`;
@@ -111,26 +126,73 @@ function handleCoverSelect(input) {
   }
 }
 
-// Event Listener saat form rilis disubmit (Otomatis generate UPC & ISRC di latar belakang)
+// Event Listener Submit: Upload File ke Storage + Simpan Metadata ke Database
 document.getElementById('artist-release-form').addEventListener('submit', async function(e) {
   e.preventDefault();
 
   const releaseTitle = document.getElementById('title-input').value;
   const displayArtist = document.getElementById('artist-input').value;
+  const audioFile = document.getElementById('audio-input').files[0];
+  const coverFile = document.getElementById('cover-input').files[0];
 
-  // Membuat kode pelacakan secara otomatis tanpa perlu diisi manual oleh musisi
-  const autoUpc = generateAutoUPC();
-  const autoIsrc = generateAutoISRC();
+  if (!releaseTitle || !displayArtist) {
+    alert("Mohon isi Judul Lagu dan Nama Artis terlebih dahulu!");
+    return;
+  }
 
-  const { data: { session } } = await supabaseClient.auth.getSession();
-  if (!session) {
-    alert("Session expired. Please sign in again.");
+  const submitBtn = this.querySelector('button[type="submit"]');
+  const originalBtnText = submitBtn.innerHTML;
+  submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading assets...';
+  submitBtn.disabled = true;
+
+  const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+  if (sessionError || !session) {
+    alert("Sesi login kedaluwarsa. Silakan sign in ulang.");
     window.location.href = 'login.html';
     return;
   }
 
-  // Simpan data rilis beserta kode otomatis ke database Supabase
-  const { error } = await supabaseClient
+  let audioUrl = '';
+  let coverUrl = '';
+
+  // 1. Upload File Audio ke Supabase Storage (Bucket: audio-assets)
+  if (audioFile) {
+    const audioFileName = `${session.user.id}/${Date.now()}_${audioFile.name}`;
+    const { data: audioData, error: audioError } = await supabaseClient.storage
+      .from('audio-assets')
+      .upload(audioFileName, audioFile);
+
+    if (audioError) {
+      alert("Gagal mengunggah file audio: " + audioError.message);
+      submitBtn.innerHTML = originalBtnText;
+      submitBtn.disabled = false;
+      return;
+    }
+    audioUrl = audioData.path;
+  }
+
+  // 2. Upload Cover Art ke Supabase Storage (Bucket: cover-art)
+  if (coverFile) {
+    const coverFileName = `${session.user.id}/${Date.now()}_${coverFile.name}`;
+    const { data: coverData, error: coverError } = await supabaseClient.storage
+      .from('cover-art')
+      .upload(coverFileName, coverFile);
+
+    if (coverError) {
+      alert("Gagal mengunggah cover art: " + coverError.message);
+      submitBtn.innerHTML = originalBtnText;
+      submitBtn.disabled = false;
+      return;
+    }
+    coverUrl = coverData.path;
+  }
+
+  // 3. Generate Kode UPC & ISRC Otomatis
+  const autoUpc = generateAutoUPC();
+  const autoIsrc = generateAutoISRC();
+
+  // 4. Simpan ke Database Tabel releases
+  const { error: dbError } = await supabaseClient
     .from('releases')
     .insert([
       { 
@@ -138,14 +200,19 @@ document.getElementById('artist-release-form').addEventListener('submit', async 
         title: releaseTitle, 
         artist: displayArtist, 
         upc: autoUpc, 
-        isrc: autoIsrc 
+        isrc: autoIsrc,
+        audio_url: audioUrl,
+        cover_url: coverUrl
       }
     ]);
 
-  if (error) {
-    alert("Submission failed: " + error.message);
+  submitBtn.innerHTML = originalBtnText;
+  submitBtn.disabled = false;
+
+  if (dbError) {
+    alert("Gagal menyimpan ke database: " + dbError.message);
   } else {
-    alert(`Release "${releaseTitle}" successfully submitted!\nGenerated UPC: ${autoUpc}\nGenerated ISRC: ${autoIsrc}`);
+    alert(`Berhasil! Rilis "${releaseTitle}" berhasil diunggah.\nUPC: ${autoUpc}\nISRC: ${autoIsrc}`);
     this.reset();
     
     document.getElementById('audio-status-text').innerText = "Click or drop audio file here";
