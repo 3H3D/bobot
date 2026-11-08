@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Catalog - Ferwap Music</title>
+  <!-- Masukkan link CSS utama Anda di sini -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome untuk ikon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body style="background: #0b0f19; color: #fff; font-family: sans-serif; margin: 0; display: flex;">
 
+  <!-- SIDEBAR NAVIGASI -->
+  <aside style="width: 260px; background: #07090f; border-right: 1px solid #1f2937; height: 100vh; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <h2 style="color: #fff; font-size: 20px; margin-bottom: 30px;">FERWAP</h2>
+      <nav style="display: flex; flex-direction: column; gap: 8px;">
+        <a href="index.html" class="tc-nav-item" style="color: #a0a0a0; text-decoration: none; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
+          <i class="fa-solid fa-cloud-arrow-up"></i> New Release
+        </a>
+        <a href="catalog.html" class="tc-nav-item active" style="color: #fff; background: #111827; text-decoration: none; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
+          <i class="fa-solid fa-music"></i> My Catalog
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- KONTEN UTAMA HALAMAN KATALOG -->
+  <main style="flex: 1; padding: 40px; box-sizing: border-box; overflow-y: auto; height: 100vh;">
+    <header class="tc-topbar" style="margin-bottom: 30px;">
+      <div>
+        <h1 class="page-headline" style="font-size: 24px; margin: 0 0 8px 0;">My Catalog</h1>
+        <p class="page-subline" style="color: #a0a0a0; font-size: 14px; margin: 0;">Manage your distributed releases, tracks, and store delivery statuses.</p>
+      </div>
+    </header>
+
+    <div class="tc-form-container">
+      <div class="tc-card" style="background: #111; border: 1px solid #222; padding: 24px; border-radius: 12px;">
+        <div id="catalog-list" style="color:#a0a0a0;">
+          Loading release catalog...
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- PANGGIL FILE JAVASCRIPT UTAMA -->
+  <script src="app.js"></script>
+  <script>
+    // Panggil fungsi pemuatan katalog otomatis saat halaman ini dibuka
+    loadCatalogData();
+  </script>
+</body>
+</html>
