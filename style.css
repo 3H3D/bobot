@@ -26,6 +26,9 @@ body { background-color: var(--tc-bg-dark); color: var(--tc-text); min-height: 1
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
 .tc-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
@@ -56,7 +59,7 @@ body { background-color: var(--tc-bg-dark); color: var(--tc-text); min-height: 1
 .account-type { font-size: 11px; color: var(--tc-red); font-weight: 600; }
 
 /* MAIN CONTENT */
-.tc-main { flex: 1; padding: 40px 48px; overflow-y: auto; }
+.tc-main { flex: 1; padding: 40px 48px; overflow-y: auto; height: 100vh; }
 .tc-topbar { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
 .page-headline { font-size: 26px; font-weight: 800; color: #fff; }
 .page-subline { font-size: 14px; color: var(--tc-muted); margin-top: 6px; }
@@ -121,63 +124,3 @@ input[type="text"]:focus { outline: none; border-color: var(--tc-red); box-shado
   box-shadow: 0 4px 20px var(--tc-red-glow);
 }
 .tc-btn-submit:hover { transform: translateY(-2px); background: #e02424; }
-
-/* =========================================================
-    RESPONSIVE MEDIA QUERIES (DESAIN TAMPILAN HP / TABLET)
-   ========================================================= */
-
-@media (max-width: 900px) {
-  .tunecore-layout { flex-direction: column; }
-
-  /* Transform Sidebar to Top Mobile Header */
-  .tc-sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--tc-border);
-    padding: 16px 20px;
-  }
-
-  .tc-brand { margin-bottom: 16px; }
-
-  .tc-nav {
-    flex-direction: row;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    gap: 8px;
-  }
-
-  .tc-nav-item {
-    white-space: nowrap;
-    padding: 10px 14px;
-    font-size: 13px;
-  }
-
-  .tc-user-card { display: none; } /* Sembunyikan user card ringkas di HP */
-
-  .tc-main { padding: 24px 16px; }
-
-  .tc-topbar {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-  }
-
-  .page-headline { font-size: 22px; }
-  .page-subline { font-size: 13px; }
-
-  .tc-card { padding: 20px 16px; }
-
-  .form-grid {
-    grid-template-columns: 1fr; /* UBAH METADATA MENJADI 1 KOLOM */
-    gap: 16px;
-  }
-
-  .tc-dropzone { padding: 28px 14px; }
-  .tc-drop-icon { font-size: 32px; }
-  .tc-dropzone h4 { font-size: 14px; }
-
-  .tc-btn-submit {
-    width: 100%; /* TOMBOL UTAMA DIPENUHIN DI HP */
-    padding: 16px;
-  }
-}
