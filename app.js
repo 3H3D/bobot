@@ -1,6 +1,7 @@
 const SUPABASE_URL = 'https://fvzayaghmxskcvwbllpr.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2emF5YWdobXhza2N2d2JsbHByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQwNTkzMDcsImV4cCI6MjEwOTYzNTMwN30.vbICKBavN-4lVBSm_oQfVK9Z9tmy18D4B7a_9YqgGhI';
 
+// Inisialisasi Klien Supabase
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 // Pengecekan Sesi Login Artis
@@ -33,7 +34,7 @@ function navigateTo(sectionId, clickedElement) {
   }
 }
 
-// Ambil Data Katalog Rilis (Beserta Tombol Hapus)
+// Ambil Data Katalog Rilis (Khusus Tampilan Artis - Tanpa Tombol Delete)
 async function loadCatalogData() {
   const catalogContainer = document.getElementById('catalog-list');
   catalogContainer.innerHTML = 'Loading catalog data...';
@@ -67,14 +68,9 @@ async function loadCatalogData() {
           <h4 style="margin:0; color:#fff;">${rel.title || 'Untitled'}</h4>
           <span style="font-size:12px; color:#a0a0a0;">Artist: ${rel.artist || '-'}</span>
         </div>
-        <div style="display:flex; align-items:center; gap:20px;">
-          <div style="text-align:right; font-size:12px; color:#888;">
-            <div>UPC: ${rel.upc || '-'}</div>
-            <div>ISRC: ${rel.isrc || '-'}</div>
-          </div>
-          <button onclick="deleteRelease('${rel.id}')" style="background:#ff2a2a; color:#fff; border:none; padding:6px 12px; border-radius:4px; cursor:pointer; font-size:12px;">
-            <i class="fa-solid fa-trash"></i> Delete
-          </button>
+        <div style="text-align:right; font-size:12px; color:#888;">
+          <div>UPC: ${rel.upc || '-'}</div>
+          <div>ISRC: ${rel.isrc || '-'}</div>
         </div>
       </div>
     `;
@@ -82,23 +78,6 @@ async function loadCatalogData() {
   html += '</div>';
 
   catalogContainer.innerHTML = html;
-}
-
-// Fungsi Hapus Lagu dari Supabase
-async function deleteRelease(releaseId) {
-  if (!confirm("Are you sure you want to delete this release?")) return;
-
-  const { error } = await supabaseClient
-    .from('releases')
-    .delete()
-    .eq('id', releaseId);
-
-  if (error) {
-    alert("Failed to delete: " + error.message);
-  } else {
-    alert("Release deleted successfully.");
-    loadCatalogData(); // Refresh tampilan katalog
-  }
 }
 
 // Generator Kode Otomatis
