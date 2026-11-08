@@ -2,7 +2,6 @@ const SUPABASE_URL = 'https://fvzayaghmxskcvwbllpr.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2emF5YWdobXhza2N2d2JsbHByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQwNTkzMDcsImV4cCI6MjEwOTYzNTMwN30.vbICKBavN-4lVBSm_oQfVK9Z9tmy18D4B7a_9YqgGhI';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-
 // Pengecekan Sesi Login Artis
 async function checkAuth() {
   const { data: { session } } = await supabaseClient.auth.getSession();
@@ -85,14 +84,16 @@ async function loadCatalogData() {
   catalogContainer.innerHTML = html;
 }
 
-function autoGenUPC() {
+// Generator Otomatis UPC (12-digit)
+function generateAutoUPC() {
   const randomSuffix = Math.floor(10000000000 + Math.random() * 90000000000);
-  document.getElementById('upc-input').value = `83${randomSuffix}`;
+  return `83${randomSuffix}`;
 }
 
-function autoGenISRC() {
+// Generator Otomatis ISRC (Standar ID-FRW-26-XXXXX)
+function generateAutoISRC() {
   const random5Digits = Math.floor(10000 + Math.random() * 90000);
-  document.getElementById('isrc-input').value = `ID-FRW-26-${random5Digits}`;
+  return `ID-FRW-26-${random5Digits}`;
 }
 
 function handleAudioSelect(input) {
@@ -109,13 +110,16 @@ function handleCoverSelect(input) {
   }
 }
 
+// Event Listener saat form rilis disubmit (Otomatis generate UPC & ISRC di latar belakang)
 document.getElementById('artist-release-form').addEventListener('submit', async function(e) {
   e.preventDefault();
 
   const releaseTitle = document.getElementById('title-input').value;
   const displayArtist = document.getElementById('artist-input').value;
-  const upcCode = document.getElementById('upc-input').value;
-  const isrcCode = document.getElementById('isrc-input').value;
+
+  // Membuat kode pelacakan secara otomatis tanpa perlu diisi manual oleh musisi
+  const autoUpc = generateAutoUPC();
+  const autoIsrc = generateAutoISRC();
 
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (!session) {
@@ -124,7 +128,7 @@ document.getElementById('artist-release-form').addEventListener('submit', async 
     return;
   }
 
-  // Simpan data rilis ke database Supabase
+  // Simpan data rilis beserta kode otomatis ke database Supabase
   const { error } = await supabaseClient
     .from('releases')
     .insert([
@@ -132,15 +136,15 @@ document.getElementById('artist-release-form').addEventListener('submit', async 
         user_id: session.user.id, 
         title: releaseTitle, 
         artist: displayArtist, 
-        upc: upcCode, 
-        isrc: isrcCode 
+        upc: autoUpc, 
+        isrc: autoIsrc 
       }
     ]);
 
   if (error) {
     alert("Submission failed: " + error.message);
   } else {
-    alert(`Release "${releaseTitle}" successfully submitted to distribution pipeline!`);
+    alert(`Release "${releaseTitle}" successfully submitted!\nGenerated UPC: ${autoUpc}\nGenerated ISRC: ${autoIsrc}`);
     this.reset();
     
     document.getElementById('audio-status-text').innerText = "Click or drop audio file here";
