@@ -1,1 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royalties - Ferwap Music</title>
+  <!-- Masukkan link CSS utama Anda di sini -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome untuk ikon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+  <body style="display:flex; flex-direction:column; min-height:100vh; margin:0; background-color:#0b0f19; color:#fff; font-family:sans-serif;">
+  
+  <div class="tunecore-layout" style="display:flex; flex-direction:column; min-height:100vh;">
+    
+    <!-- HEADER UTAMA (LATAR HITAM FULL-WIDTH SELEBAR LAYAR, MENU DI TENGAH) -->
+    <header class="top-header-banner" style="background: #07090f; border-bottom: 1px solid #1f2937; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; width: 100%; box-sizing: border-box;">
+      
+      <!-- KIRI: BRAND FERWAP -->
+      <div class="tc-brand" style="display: flex; align-items: center; gap: 12px;">
+        <div class="brand-logo" style="background: #ff2a2a; color: #fff; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+          <i class="fa-solid fa-bolt-lightning"></i>
+        </div>
+        <div class="brand-name">
+          <h2 style="margin: 0; font-size: 18px;">FERWAP</h2>
+          <span style="font-size: 12px; color: #888;">Ferwap Group</span>
+        </div>
+      </div>
 
+      <!-- TENGAH: MENU NAVIGASI BERJAJAR KE TENGAH -->
+      <nav class="tc-nav" style="display: flex; flex-direction: row; gap: 12px; align-items: center;">
+        <a href="index.html" class="tc-nav-item active" style="color: #fff; background: #111827; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
+          <i class="fa-solid fa-cloud-arrow-up"></i> New Release
+        </a>
+        <a href="catalog.html" class="tc-nav-item" style="color: #a0a0a0; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
+          <i class="fa-solid fa-compact-disc"></i> My Catalog
+        </a>
+        <a href="analytics.html" class="tc-nav-item" style="color: #a0a0a0; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
+          <i class="fa-solid fa-chart-line"></i> Analytics
+        </a>
+        <a href="royalties.html" class="tc-nav-item" style="color: #a0a0a0; text-decoration: none; padding: 8px 14px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 13px;">
+          <i class="fa-solid fa-wallet"></i> Royalties
+        </a>
+      </nav>
+
+      <!-- KANAN: PROFIL ARTIS DI UJUNG KANAN -->
+      <div class="tc-user-card" style="display: flex; align-items: center; gap: 12px; background: #111; padding: 8px 14px; border-radius: 8px; border: 1px solid #222;">
+        <div id="user-avatar" class="user-avatar" style="background: #333; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">U</div>
+        <div class="user-meta">
+          <p id="user-display-name" class="artist-name" style="margin: 0; font-size: 13px; font-weight: bold;">Loading...</p>
+          <span class="account-type" style="font-size: 10px; color: #10b981;">Verified Artist</span>
+        </div>
+      </div>
+
+    </header>
+
+  <!-- KONTEN UTAMA HALAMAN ROYALTIES -->
+  <main style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; width: 100%; padding: 0;">
+    
+    <div style="padding: 40px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box;">
+      <header class="tc-topbar" style="margin-bottom: 30px;">
+        <div>
+          <h1 class="page-headline" style="font-size: 24px; margin: 0 0 8px 0;">Royalties</h1>
+          <p class="page-subline" style="color: #a0a0a0; font-size: 14px; margin: 0;">View your earnings, financial statements, and payout history.</p>
+        </div>
+      </header>
+
+      <div class="tc-form-container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
+          <div style="background: #111; border: 1px solid #222; padding: 20px; border-radius: 12px;">
+            <span style="font-size: 13px; color: #a0a0a0;">Total Balance</span>
+            <h3 style="margin: 8px 0 0 0; font-size: 24px; color: #10b981;">$0.00</h3>
+          </div>
+          <div style="background: #111; border: 1px solid #222; padding: 20px; border-radius: 12px;">
+            <span style="font-size: 13px; color: #a0a0a0;">Pending Payout</span>
+            <h3 style="margin: 8px 0 0 0; font-size: 24px; color: #fff;">$0.00</h3>
+          </div>
+        </div>
+
+        <div class="tc-card" style="background: #111; border: 1px solid #222; padding: 24px; border-radius: 12px;">
+          <h3 style="margin-top: 0; color: #fff; font-size: 16px;">Financial Statements</h3>
+          <p style="color: #a0a0a0; font-size: 14px; margin-bottom: 0;">No earnings statements available yet. Payout reports from digital stores will appear here once revenue is generated.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER GLOBAL (MERAH SELEBAR LAYAR PENUH) -->
+    <footer class="site-footer" style="width: 100%; background: #ff2a2a; color: #fff; font-size: 13px; box-sizing: border-box; padding: 40px 48px;">
+      <div style="max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; box-sizing: border-box;">
+        
+        <div>
+          <h4 style="color: #000; font-size: 14px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Terms of Service</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+            <li><a href="https://ferwap.com/privacy" style="color: #fff; text-decoration: none;">Privacy Policy</a></li>
+            <li><a href="https://ferwap.com/contacts" style="color: #fff; text-decoration: none;">Contacts</a></li>
+            <li><a href="https://ferwap.com/terms" style="color: #fff; text-decoration: none;">Terms</a></li>
+            <li><a href="https://ferwap.com/faq" style="color: #fff; text-decoration: none;">Faq</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #000; font-size: 14px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Ferwap Group</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+            <li><a href="index.html" style="color: #fff; text-decoration: none;">Upload Release</a></li>
+            <li><a href="https://ferwap.com/artists" style="color: #fff; text-decoration: none;">Artist Services</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #000; font-size: 14px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Community & Social</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+            <li><a href="https://www.facebook.com/ferwapmusic" style="color: #fff; text-decoration: none;">Facebook</a></li>
+            <li><a href="https://www.instagram.com/ferwapmusic" style="color: #fff; text-decoration: none;">Instagram</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #000; font-size: 14px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Account Support</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+            <li><a href="login.html" style="color: #fff; text-decoration: none;">Sign In</a></li>
+            <li><a href="mailto:support@ferwap.com" style="color: #fff; text-decoration: none;">Contact Us</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </footer>
+
+  </main>
+
+  </div>
+
+  <!-- PANGGIL FILE JAVASCRIPT UTAMA -->
+  <script src="app.js"></script>
+</body>
+</html>
