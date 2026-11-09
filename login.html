@@ -6,6 +6,48 @@
   <title>Ferwap Music - Global Distribution</title>
   <!-- Font Awesome untuk Ikon Logo Musik -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Styling & Animasi Slider Logo Musik */
+    .store-slider {
+      position: relative;
+      width: 100%;
+      height: 90px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .store-item {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out, visibility 0.6s;
+      transform: scale(0.9);
+    }
+
+    .store-item.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    .store-item i {
+      font-size: 52px;
+    }
+
+    .store-name {
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #a0a0a0;
+      text-transform: uppercase;
+    }
+  </style>
 </head>
 <body style="display:flex; flex-direction:column; justify-content:space-between; align-items:center; min-height:100vh; margin:0; background-color:#000000; color:#fff; font-family:sans-serif;">
 
@@ -25,22 +67,44 @@
     </div>
   </header>
 
-  <!-- MAIN KONTEN TENGAH: TAMPILAN PROFESIONAL & LOGO MUSIK -->
+  <!-- MAIN KONTEN TENGAH: TAMPILAN PROFESIONAL & ANIMASI LOGO -->
   <main style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:60px 20px; width:100%; max-width:800px; text-align:center; box-sizing:border-box;">
     
     <h1 style="font-size:38px; margin-bottom:16px; color:#fff; letter-spacing:1px;">Distribute Your Music Globally</h1>
-    <p style="font-size:16px; color:#a0a0a0; margin-bottom:40px; line-height:1.6; max-width:600px;">
+    <p style="font-size:16px; color:#a0a0a0; margin-bottom:35px; line-height:1.6; max-width:600px;">
       Get your tracks on all major platforms worldwide. Retain 100% of your rights and track your royalties effortlessly with Ferwap Group.
     </p>
 
-    <!-- Deretan Logo Platform Musik -->
-    <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:32px; font-size:36px; color:#555; margin-bottom:48px;">
-      <i class="fa-brands fa-spotify" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#1DB954'" onmouseout="this.style.color='#555'" title="Spotify"></i>
-      <i class="fa-brands fa-apple" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'" title="Apple Music"></i>
-      <i class="fa-brands fa-youtube" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#555'" title="YouTube Music"></i>
-      <i class="fa-brands fa-tiktok" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'" title="TikTok"></i>
-      <i class="fa-brands fa-instagram" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#E1306C'" onmouseout="this.style.color='#555'" title="Instagram"></i>
-      <i class="fa-brands fa-amazon" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#FF9900'" onmouseout="this.style.color='#555'" title="Amazon Music"></i>
+    <!-- CONTAINER ANIMASI LOGO TOKO MUSIK (Bergantian Satu per Satu) -->
+    <div class="store-slider">
+      <div class="store-item active">
+        <i class="fa-brands fa-spotify" style="color:#1DB954;"></i>
+        <span class="store-name">Spotify</span>
+      </div>
+      <div class="store-item">
+        <i class="fa-brands fa-apple" style="color:#ffffff;"></i>
+        <span class="store-name">Apple Music</span>
+      </div>
+      <div class="store-item">
+        <i class="fa-brands fa-youtube" style="color:#FF0000;"></i>
+        <span class="store-name">YouTube Music</span>
+      </div>
+      <div class="store-item">
+        <i class="fa-brands fa-tiktok" style="color:#00f2fe;"></i>
+        <span class="store-name">TikTok Music</span>
+      </div>
+      <div class="store-item">
+        <i class="fa-brands fa-instagram" style="color:#E1306C;"></i>
+        <span class="store-name">Instagram / Meta</span>
+      </div>
+      <div class="store-item">
+        <i class="fa-brands fa-amazon" style="color:#FF9900;"></i>
+        <span class="store-name">Amazon Music</span>
+      </div>
+      <div class="store-item">
+        <i class="fa-solid fa-music" style="color:#ff2a2a;"></i>
+        <span class="store-name">& 150+ Digital Stores</span>
+      </div>
     </div>
 
     <!-- Form Get Started (Satu Draf) -->
@@ -101,12 +165,22 @@
   </footer>
 
   <script>
+    // LOGIKA ANIMASI ROTASI LOGO BERGANTIAN
+    const storeItems = document.querySelectorAll('.store-item');
+    let currentIndex = 0;
+
+    function rotateStores() {
+      storeItems[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % storeItems.length;
+      storeItems[currentIndex].classList.add('active');
+    }
+
+    // Logo berganti setiap 2 detik (2000 ms)
+    setInterval(rotateStores, 2000);
+
     // Fungsi saat tombol Get Started diklik
     function handleGetStarted(event) {
-      event.preventDefault(); // Mencegah halaman refresh
-      
-      // Saat pengguna klik Get Started, langsung arahkan ke halaman pendaftaran (misalnya register.html)
-      // Kamu bisa ubah 'register.html' sesuai dengan nama file halaman daftarmu.
+      event.preventDefault();
       window.location.href = 'register.html'; 
     }
   </script>
