@@ -3,472 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ferwap Group — Secure Portal</title>
-  <!-- Font Awesome Icons -->
+  <title>Ferwap Music - Global Distribution</title>
+  <!-- Font Awesome untuk Ikon Logo Musik -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts: Inter untuk kesan modern & profesional -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Supabase JS Client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
-  <style>
-    :root {
-      --bg-primary: #050505;
-      --bg-card: #0c0c0c;
-      --border-color: #222222;
-      --border-focus: #ff2a2a;
-      --accent-red: #ff2a2a;
-      --accent-hover: #e02424;
-      --text-main: #ffffff;
-      --text-muted: #888888;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      justify-content: space-between;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Professional Header */
-    header {
-      width: 100%;
-      padding: 20px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(5, 5, 5, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .brand-badge {
-      background: var(--accent-red);
-      color: #fff;
-      font-weight: 700;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 10px;
-      font-size: 15px;
-      letter-spacing: -0.5px;
-    }
-
-    .brand-title h3 {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      color: #fff;
-    }
-
-    .brand-title span {
-      font-size: 11px;
-      color: var(--text-muted);
-      letter-spacing: 0.2px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    /* Main Container & Card */
-    .main-wrapper {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px 20px;
-    }
-
-    .auth-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-top: 3px solid var(--accent-red);
-      border-radius: 16px;
-      padding: 40px;
-      width: 100%;
-      max-width: 420px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-    }
-
-    .auth-header {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
-    .auth-header h2 {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      margin-bottom: 6px;
-    }
-
-    .auth-header p {
-      color: var(--text-muted);
-      font-size: 13px;
-    }
-
-    /* Cinematic Mode Tabs */
-    .tab-container {
-      display: flex;
-      background: #000000;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 4px;
-      margin-bottom: 24px;
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 10px;
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 13px;
-      font-weight: 500;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    .tab-btn.active {
-      background: var(--accent-red);
-      color: #fff;
-      font-weight: 600;
-    }
-
-    /* Form Fields */
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .form-group label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-muted);
-      letter-spacing: 0.2px;
-    }
-
-    .input-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .form-control {
-      width: 100%;
-      background: #050505;
-      border: 1px solid var(--border-color);
-      padding: 12px 14px;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 14px;
-      font-family: 'Inter', sans-serif;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .form-control:focus {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px rgba(255, 42, 42, 0.15);
-    }
-
-    .password-toggle {
-      position: absolute;
-      right: 14px;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-
-    .password-toggle:hover {
-      color: #fff;
-    }
-
-    .submit-btn {
-      width: 100%;
-      background: var(--accent-red);
-      color: #fff;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 13px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 8px;
-      transition: background 0.2s ease, transform 0.1s ease;
-    }
-
-    .submit-btn:hover {
-      background: var(--accent-hover);
-    }
-
-    .submit-btn:active {
-      transform: scale(0.99);
-    }
-
-    /* Professional Footer */
-    footer {
-      width: 100%;
-      background: #030303;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-muted);
-      font-size: 12px;
-      padding: 40px 48px;
-    }
-
-    .footer-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 32px;
-    }
-
-    .footer-col h4 {
-      color: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 14px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .footer-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-col ul li a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-col ul li a:hover {
-      color: var(--accent-red);
-    }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 32px auto 0 auto;
-      padding-top: 20px;
-      border-top: 1px solid #111;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  </style>
 </head>
-<body>
+<body style="display:flex; flex-direction:column; justify-content:space-between; align-items:center; min-height:100vh; margin:0; background-color:#000000; color:#fff; font-family:sans-serif;">
 
-  <!-- HEADER -->
-  <header>
-    <div class="brand-logo">
-      <div class="brand-badge">3H</div>
-      <div class="brand-title">
-        <h3>FERWAP MUSIC</h3>
-        <span>Ferwap Group Portal</span>
+  <!-- HEADER: Full Red Background (TIDAK DIUBAH) -->
+  <header style="width:100%; padding:16px 32px; display:flex; justify-content:space-between; align-items:center; background:#ff2a2a; box-sizing:border-box;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div style="background:#000; color:#ff2a2a; font-weight:bold; width:36px; height:36px; display:flex; justify-content:center; align-items:center; border-radius:8px; font-size:16px;">3H</div>
+      <div>
+        <h3 style="margin:0; color:#fff; font-size:16px; letter-spacing:0.5px;">FERWAP MUSIC</h3>
+        <span style="font-size:11px; color:#f0f0f0;">Ferwap Group</span>
       </div>
     </div>
-    <div class="nav-links">
-      <a href="mailto:support@ferwap.com">Support</a>
-      <a href="#feedback" onclick="alert('Please contact admin via email for feedback or technical support.'); return false;">Feedback</a>
+
+    <div style="display:flex; gap:20px; font-size:14px;">
+      <a href="mailto:support@ferwap.com" style="color:#fff; text-decoration:none; transition:0.2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Support</a>
+      <a href="#feedback" onclick="alert('Please contact admin via email for feedback or technical support.'); return false;" style="color:#fff; text-decoration:none; transition:0.2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Feedback</a>
     </div>
   </header>
 
-  <!-- MAIN AUTH CONTAINER -->
-  <div class="main-wrapper">
-    <div class="auth-card">
+  <!-- MAIN KONTEN TENGAH: TAMPILAN PROFESIONAL & LOGO MUSIK -->
+  <main style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:60px 20px; width:100%; max-width:800px; text-align:center; box-sizing:border-box;">
+    
+    <h1 style="font-size:38px; margin-bottom:16px; color:#fff; letter-spacing:1px;">Distribute Your Music Globally</h1>
+    <p style="font-size:16px; color:#a0a0a0; margin-bottom:40px; line-height:1.6; max-width:600px;">
+      Get your tracks on all major platforms worldwide. Retain 100% of your rights and track your royalties effortlessly with Ferwap Group.
+    </p>
+
+    <!-- Deretan Logo Platform Musik -->
+    <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:32px; font-size:36px; color:#555; margin-bottom:48px;">
+      <i class="fa-brands fa-spotify" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#1DB954'" onmouseout="this.style.color='#555'" title="Spotify"></i>
+      <i class="fa-brands fa-apple" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'" title="Apple Music"></i>
+      <i class="fa-brands fa-youtube" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#555'" title="YouTube Music"></i>
+      <i class="fa-brands fa-tiktok" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'" title="TikTok"></i>
+      <i class="fa-brands fa-instagram" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#E1306C'" onmouseout="this.style.color='#555'" title="Instagram"></i>
+      <i class="fa-brands fa-amazon" style="transition:0.3s; cursor:pointer;" onmouseover="this.style.color='#FF9900'" onmouseout="this.style.color='#555'" title="Amazon Music"></i>
+    </div>
+
+    <!-- Form Get Started (Satu Draf) -->
+    <form onsubmit="handleGetStarted(event)" style="display:flex; width:100%; max-width:500px; gap:10px;">
+      <input type="email" placeholder="Enter your email address" required style="flex:1; padding:16px; border-radius:8px; border:1px solid #333; background:#0d0d0d; color:#fff; font-size:15px; outline:none; transition:0.2s;" onfocus="this.style.borderColor='#ff2a2a'" onblur="this.style.borderColor='#333'">
+      <button type="submit" style="padding:16px 32px; border-radius:8px; border:none; background:#ff2a2a; color:#fff; font-size:15px; font-weight:bold; cursor:pointer; transition:0.2s;" onmouseover="this.style.background='#e02424'" onmouseout="this.style.background='#ff2a2a'">Get Started</button>
+    </form>
+    
+    <div style="margin-top:20px; font-size:14px; color:#a0a0a0;">
+      Already have a release? <a href="#" onclick="alert('Mengarahkan ke halaman pengajuan demo...'); window.location.href='demo.html'; return false;" style="color:#ff2a2a; text-decoration:none; font-weight:bold;">Submit a Demo</a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER: Full Red Background (TIDAK DIUBAH) -->
+  <footer class="site-footer" style="width:100%; background:#ff2a2a; color:#fff; font-size:13px; box-sizing:border-box; padding:40px 32px;">
+    <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:30px;">
       
-      <div class="auth-header">
-        <h2>Authorized Access</h2>
-        <p>Sign in to manage your releases and distributor catalog.</p>
-      </div>
-
-      <!-- Mode Selector Tabs (Pill Style) -->
-      <div class="tab-container">
-        <button id="tab-login" class="tab-btn active" onclick="switchMode('login')">Sign In</button>
-        <button id="tab-signup" class="tab-btn" onclick="switchMode('signup')">Sign Up</button>
-      </div>
-
-      <!-- Authentication Form -->
-      <form id="auth-form">
-        <div id="artist-name-group" class="form-group" style="display:none;">
-          <label>Stage Name / Legal Name</label>
-          <input type="text" id="artist-name" placeholder="e.g. 3H3D" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" id="auth-email" placeholder="name@domain.com" required class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>Password</label>
-          <div class="input-wrapper">
-            <input type="password" id="auth-password" placeholder="••••••••••••" required class="form-control" style="padding-right: 40px;">
-            <i id="toggle-password" class="fa-solid fa-eye password-toggle" onclick="togglePasswordVisibility()"></i>
-          </div>
-        </div>
-
-        <button type="submit" id="btn-submit" class="submit-btn">Sign In to Portal</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>Terms of Service</h4>
-        <ul>
-          <li><a href="https://ferwap.com/privacy">Privacy Policy</a></li>
-          <li><a href="https://ferwap.com/contacts">Contacts</a></li>
-          <li><a href="https://ferwap.com/terms">Terms</a></li>
-          <li><a href="https://ferwap.com/faq">Faq</a></li>
+      <!-- Kolom 1 -->
+      <div>
+        <h4 style="color:#000; font-size:14px; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Terms of Service</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;">
+          <li><a href="https://ferwap.com/privacy" style="color:#fff; text-decoration:none;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Privacy Policy</a></li>
+          <li><a href="https://ferwap.com/contacts" style="color:#fff; text-decoration:none;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Contacts</a></li>
+          <li><a href="https://ferwap.com/terms" style="color:#fff; text-decoration:none;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Terms</a></li>
+          <li><a href="https://ferwap.com/faq" style="color:#fff; text-decoration:none;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Faq</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Ferwap Group</h4>
-        <ul>
-          <li><a href="index.html">Upload Release</a></li>
-          <li><a href="https://ferwap.com/artists">Artist Services</a></li>
+
+      <!-- Kolom 2 -->
+      <div>
+        <h4 style="color:#000; font-size:14px; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">FERWAP GROUP</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;">
+          <li><a href="index.html" style="color:#fff; text-decoration:none;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Upload Release</a></li>
+          <li><a href="https://ferwap.com/artists" style="color:#fff; text-decoration:none;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Artist Services</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Community & Social</h4>
-        <ul>
-          <li><a href="https://www.facebook.com/ferwapmusic">Facebook</a></li>
-          <li><a href="https://www.instagram.com/ferwapmusic">Instagram</a></li>
+
+      <!-- Kolom 3 -->
+      <div>
+        <h4 style="color:#000; font-size:14px; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Community & Social</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;">
+          <li><a href="https://www.facebook.com/ferwapmusic" style="color:#fff; text-decoration:none;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Facebook</a></li>
+          <li><a href="https://www.instagram.com/ferwapmusic" style="color:#fff; text-decoration:none;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Instagram</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Account Support</h4>
-        <ul>
-          <li><a href="login.html">Sign In</a></li>
-          <li><a href="mailto:support@ferwap.com">Contact Us</a></li>
+
+      <!-- Kolom 4 -->
+      <div>
+        <h4 style="color:#000; font-size:14px; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Account Support</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;">
+          <li><a href="login.html" style="color:#fff; text-decoration:none;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Sign In</a></li>
+          <li><a href="mailto:support@ferwap.com" style="color:#fff; text-decoration:none;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#fff'">Contact Us</a></li>
         </ul>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Ferwap Group. All Rights Reserved.</span>
-      <span style="font-size: 11px; color: #555;">Secure Auth Environment</span>
+
     </div>
   </footer>
 
-  <!-- SCRIPT LOGIKA SUPABASE -->
   <script>
-    const SUPABASE_URL = 'https://fvzayaghmxskcvwbllpr.supabase.co';
-    const SUPABASE_PUBLISHABLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2emF5YWdobXhza2N2d2JsbHByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQwNTkzMDcsImV4cCI6MjEwOTYzNTMwN30.vbICKBavN-4lVBSm_oQfVK9Z9tmy18D4B7a_9YqgGhI';
-    
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-
-    let mode = 'login';
-
-    function togglePasswordVisibility() {
-      const pwdInput = document.getElementById('auth-password');
-      const eyeIcon = document.getElementById('toggle-password');
-      if (pwdInput.type === 'password') {
-        pwdInput.type = 'text';
-        eyeIcon.classList.remove('fa-eye');
-        eyeIcon.classList.add('fa-eye-slash');
-      } else {
-        pwdInput.type = 'password';
-        eyeIcon.classList.remove('fa-eye-slash');
-        eyeIcon.classList.add('fa-eye');
-      }
+    // Fungsi saat tombol Get Started diklik
+    function handleGetStarted(event) {
+      event.preventDefault(); // Mencegah halaman refresh
+      
+      // Saat pengguna klik Get Started, langsung arahkan ke halaman pendaftaran (misalnya register.html)
+      // Kamu bisa ubah 'register.html' sesuai dengan nama file halaman daftarmu.
+      window.location.href = 'register.html'; 
     }
-
-    function switchMode(newMode) {
-      mode = newMode;
-      const tabLogin = document.getElementById('tab-login');
-      const tabSignup = document.getElementById('tab-signup');
-      const nameGroup = document.getElementById('artist-name-group');
-      const btnSubmit = document.getElementById('btn-submit');
-
-      if (mode === 'signup') {
-        tabSignup.classList.add('active');
-        tabLogin.classList.remove('active');
-        nameGroup.style.display = 'flex';
-        btnSubmit.innerText = 'Create Account';
-      } else {
-        tabLogin.classList.add('active');
-        tabSignup.classList.remove('active');
-        nameGroup.style.display = 'none';
-        btnSubmit.innerText = 'Sign In to Portal';
-      }
-    }
-
-    document.getElementById('auth-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const email = document.getElementById('auth-email').value;
-      const password = document.getElementById('auth-password').value;
-
-      if (mode === 'signup') {
-        const artistName = document.getElementById('artist-name').value;
-        const { data, error } = await supabaseClient.auth.signUp({
-          email: email,
-          password: password,
-          options: { data: { display_name: artistName } }
-        });
-
-        if (error) {
-          alert("Registration failed: " + error.message);
-        } else {
-          alert("Registration successful! Please sign in.");
-          switchMode('login');
-        }
-      } else {
-        const { data, error } = await supabaseClient.auth.signInWithPassword({
-          email: email,
-          password: password
-        });
-
-        if (error) {
-          alert("Sign in failed: " + error.message);
-        } else {
-          alert("Sign in successful!");
-          window.location.href = 'dashboard.html'; // Mengarahkan ke dasbor utama
-        }
-      }
-    });
   </script>
 </body>
 </html>
