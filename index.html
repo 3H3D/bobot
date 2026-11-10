@@ -121,12 +121,21 @@
                   <input type="text" id="title-input" placeholder="Title" required style="width: 100%; padding: 12px; background: #07090f; border: 1px solid #222; color: #fff; border-radius: 6px; box-sizing: border-box;">
                 </div>
 
-                <div class="input-block">
-                  <label style="display: block; font-size: 12px; color: #a0a0a0; margin-bottom: 6px;">Display Artist</label>
-                  <input type="text" id="artist-input" placeholder="Artist Name" required style="width: 100%; padding: 12px; background: #07090f; border: 1px solid #222; color: #fff; border-radius: 6px; box-sizing: border-box;">
+                <div class="row">
+                <div class="col form-group">
+                    <label for="role">Primary Role</label>
+                    <select id="role" name="role" required>
+                        <option value="">-- Select Your Role --</option>
+                        <option value="solo_singer">Solo Vocalist</option>
+                        <option value="solo_singer">singer</option>
+                        <option value="songwriter">Songwriter</option>
+                        <option value="producer">Music Producer</option>
+                         <option value="producer">Beatmaker</option>
+                        <option value="band_group">Group</option>
+                        <option value="band_group">Duo</option>
+                        <option value="band_group">Band</option>
+                    </select>
                 </div>
-              </div>
-            </div>
 
             <!-- SUBMIT ACTION -->
             <div class="form-footer-action">
